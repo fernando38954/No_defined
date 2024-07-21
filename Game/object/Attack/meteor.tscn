@@ -1,0 +1,107 @@
+[gd_scene load_steps=16 format=3 uid="uid://bxv1mgnov8hk7"]
+
+[ext_resource type="Script" path="res://script/Attack/meteor.gd" id="1_02ipn"]
+[ext_resource type="Texture2D" uid="uid://dyuei0ad1gtyx" path="res://assets/Attack/meteors.png" id="2_421gm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pitm4"]
+atlas = ExtResource("2_421gm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq2e6"]
+atlas = ExtResource("2_421gm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhh1a"]
+atlas = ExtResource("2_421gm")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkdt0"]
+atlas = ExtResource("2_421gm")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u52np"]
+atlas = ExtResource("2_421gm")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nggm"]
+atlas = ExtResource("2_421gm")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8sx1"]
+atlas = ExtResource("2_421gm")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vucf"]
+atlas = ExtResource("2_421gm")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntp87"]
+atlas = ExtResource("2_421gm")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oejhe"]
+atlas = ExtResource("2_421gm")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8siv"]
+atlas = ExtResource("2_421gm")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4afkj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pitm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jq2e6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhh1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkdt0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u52np")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nggm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8sx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vucf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntp87")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oejhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8siv")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2gvvb"]
+
+[node name="Meteor" type="Area2D"]
+script = ExtResource("1_02ipn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-40, -55)
+sprite_frames = SubResource("SpriteFrames_4afkj")
+frame = 10
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, -21)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_2gvvb")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
