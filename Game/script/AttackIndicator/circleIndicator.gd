@@ -6,4 +6,4 @@ func start(_radius):
 	radius = _radius
 
 func _draw():
-	draw_circle(Vector2(0,0), radius, Color(1, 0, 0,.2))
+	draw_circle(Vector2(0,0), radius, Color(.8, .8, .8, .5))

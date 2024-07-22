@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqeepxg2onn2q"]
+
+[ext_resource type="Script" path="res://script/AttackIndicator/circleIndicator.gd" id="1_p6gt1"]
+
+[node name="CircleIndicator" type="Node2D"]
+show_behind_parent = true
+script = ExtResource("1_p6gt1")

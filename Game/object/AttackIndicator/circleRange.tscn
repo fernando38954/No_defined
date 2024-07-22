@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqbsyesfd8d74"]
+
+[ext_resource type="Script" path="res://script/AttackIndicator/circleRange.gd" id="1_arda1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gv6id"]
+radius = 1.0
+
+[node name="Range" type="Node2D"]
+show_behind_parent = true
+script = ExtResource("1_arda1")
+
+[node name="CircleRangeDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CircleRangeDetector"]
+shape = SubResource("CircleShape2D_gv6id")
+
+[connection signal="mouse_entered" from="CircleRangeDetector" to="." method="_on_circle_range_mouse_entered"]
+[connection signal="mouse_exited" from="CircleRangeDetector" to="." method="_on_circle_range_mouse_exited"]

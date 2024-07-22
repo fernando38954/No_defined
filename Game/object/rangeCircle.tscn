@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqbsyesfd8d74"]
-
-[ext_resource type="Script" path="res://script/circleRange.gd" id="1_m476o"]
-
-[node name="Range" type="Node2D"]
-show_behind_parent = true
-script = ExtResource("1_m476o")

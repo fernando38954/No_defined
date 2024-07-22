@@ -16,6 +16,10 @@ enum Element {
 	Null, Air, Fire, Earth, Water
 }
 
+enum Type {
+	Area, Line
+}
+
 func dash_event(delta):
 	if is_zero_approx(velocity.x) and is_zero_approx(velocity.y):
 		PlayerStatus.in_dash = false
@@ -48,7 +52,7 @@ func attack_event(delta):
 		PlayerStatus.can_move = false
 		detect_attack_delay = ATTACK_DELAY
 	if PlayerStatus.in_attack:
-		if Input.is_action_just_pressed("key_attack") and detect_attack_delay == 0:
+		if Input.is_action_just_pressed("key_attack") and detect_attack_delay == 0 and PlayerStatus.in_attack_range:
 			$Range.queue_free()
 			call_attack()
 			PlayerStatus.in_attack = false
@@ -89,7 +93,10 @@ func reset_attack():
 	PlayerStatus.can_attack = true
 	PlayerStatus.in_attack = false
 	PlayerStatus.can_move = true
+	PlayerStatus.in_attack_range = false
 	range_showed = false
+	if get_node_or_null("Range"):
+		$Range.queue_free()
 	if PlayerStatus.can_dash:
 		$Sprite.play("default")
 	else:
@@ -149,7 +156,18 @@ func call_attack():
 		get_tree().root.add_child(attack_type)
 	
 func show_range():
-	attack_range = load("res://object/rangeCircle.tscn").instantiate()
-	attack_range.start(100)
+	attack_range = load("res://object/AttackIndicator/circleRange.tscn").instantiate()
+	
+	if attack == Vector2(Element.Air, Element.Air):
+		attack_range.start(100, Type.Area, 40)
+	elif attack == Vector2(Element.Air, Element.Fire):
+		attack_range.start(100, Type.Line, -1)
+	elif attack == Vector2(Element.Earth, Element.Earth):
+		attack_range.start(100, Type.Area, 20)
+	elif attack == Vector2(Element.Earth, Element.Fire):
+		attack_range.start(100, Type.Area, 20)
+	else:
+		attack_range.start(100, Type.Area, 20)
+		
 	add_child(attack_range)
 	attack_range.name = "Range"
