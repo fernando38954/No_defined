@@ -11,7 +11,7 @@ func start(_position):
 	
 func _process(delta):
 	if $AnimatedSprite2D.frame <= 5:
-		global_position += Vector2(.3, .3)
+		global_position += Vector2(1.5, 1.5)
 
 func _on_animated_sprite_2d_animation_finished():
 	queue_free()

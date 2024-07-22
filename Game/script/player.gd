@@ -161,11 +161,11 @@ func show_range():
 	if attack == Vector2(Element.Air, Element.Air):
 		attack_range.start(100, Type.Area, 40)
 	elif attack == Vector2(Element.Air, Element.Fire):
-		attack_range.start(100, Type.Line, -1)
+		attack_range.start(70, Type.Line, -1)
 	elif attack == Vector2(Element.Earth, Element.Earth):
 		attack_range.start(100, Type.Area, 20)
 	elif attack == Vector2(Element.Earth, Element.Fire):
-		attack_range.start(100, Type.Area, 20)
+		attack_range.start(100, Type.Area, 30)
 	else:
 		attack_range.start(100, Type.Area, 20)
 		
