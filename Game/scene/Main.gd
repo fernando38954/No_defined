@@ -6,7 +6,7 @@ var timer_enemy = 0
 
 func _process(delta):
 	if timer_enemy == 0:
-		var enemy = load("res://object/Character/enemy.tscn").instantiate()
+		var enemy = load("res://object/Character/Enemy/enemy.tscn").instantiate()
 		var rand_position = Vector2(randf_range(-384, 384), randf_range(-384, 384))
 		while abs(PlayerStatus.global_position.x - rand_position.x) < 213:
 			rand_position.x = randf_range(-384, 384)

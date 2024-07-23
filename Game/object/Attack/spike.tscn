@@ -81,18 +81,23 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2gvvb"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_hs8sr"]
 
 [node name="Spike" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_mq11c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -33)
+position = Vector2(2, -9)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_agkgm")
+frame = 9
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4, -21)
-scale = Vector2(2, 2)
-shape = SubResource("RectangleShape2D_2gvvb")
+shape = SubResource("CircleShape2D_hs8sr")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

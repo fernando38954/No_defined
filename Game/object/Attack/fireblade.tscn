@@ -124,20 +124,25 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2gvvb"]
-size = Vector2(39.5, 14)
+size = Vector2(29.75, 5.5)
 
 [node name="Fireblade" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_inw20")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(48, -2)
+position = Vector2(39, -1)
+scale = Vector2(0.85, 0.85)
 sprite_frames = SubResource("SpriteFrames_io3hs")
 frame = 15
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(39, 0)
+position = Vector2(30.25, 0.5)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_2gvvb")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

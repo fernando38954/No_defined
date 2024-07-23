@@ -1,6 +1,5 @@
-extends CharacterBody2D
-
 class_name Player
+extends CharacterBody2D
 
 const SPEED = 150.0
 const DASH_CD = 2
@@ -37,10 +36,14 @@ func dash_event(delta):
 		PlayerStatus.in_dash = true
 		timer_dash = DASH_CD
 		
+		if not PlayerStatus.in_attack:
+			velocity.x = input.normalized().x * SPEED * 6
+			velocity.y = input.normalized().y * SPEED * 6
+		else:
+			velocity.x = PlayerStatus.direction.normalized().x * SPEED * 6
+			velocity.y = PlayerStatus.direction.normalized().y * SPEED * 6
+		
 		reset_attack()
-			
-		velocity.x = input.normalized().x * SPEED * 6
-		velocity.y = input.normalized().y * SPEED * 6
 	
 	timer_dash = move_toward(timer_dash, 0, delta)
 
@@ -143,7 +146,7 @@ func call_attack():
 	
 	if attack == Vector2(Element.Air, Element.Air):
 		attack_type = load("res://object/Attack/tornado.tscn").instantiate()
-	elif attack == Vector2(Element.Air, Element.Fire):
+	elif attack == Vector2(Element.Fire, Element.Fire):
 		attack_type = load("res://object/Attack/fireblade.tscn").instantiate()
 	elif attack == Vector2(Element.Earth, Element.Earth):
 		attack_type = load("res://object/Attack/spike.tscn").instantiate()
@@ -165,14 +168,14 @@ func show_range():
 	
 	if attack == Vector2(Element.Air, Element.Air):
 		attack_range.start("Tornado")
-	elif attack == Vector2(Element.Air, Element.Fire):
+	elif attack == Vector2(Element.Fire, Element.Fire):
 		attack_range.start("FireBlade")
 	elif attack == Vector2(Element.Earth, Element.Earth):
 		attack_range.start("Spike")
 	elif attack == Vector2(Element.Earth, Element.Fire):
 		attack_range.start("Meteor")
 	else:
-		attack_range.start()
+		attack_range.start("NULL")
 		
 	add_child(attack_range)
 	attack_range.name = "Range"

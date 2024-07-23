@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djyeaksadqdof"
-path="res://.godot/imported/snakebite_up.png-0c02e2f19586ad2b7050fd6606e132b4.ctex"
+uid="uid://bhbe54xrhf2vb"
+path="res://.godot/imported/shield.png-2b691be9a3e3c31c5cf69f96504c12d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Attack/snakebite_up.png"
-dest_files=["res://.godot/imported/snakebite_up.png-0c02e2f19586ad2b7050fd6606e132b4.ctex"]
+source_file="res://assets/Attack/shield.png"
+dest_files=["res://.godot/imported/shield.png-2b691be9a3e3c31c5cf69f96504c12d9.ctex"]
 
 [params]
 

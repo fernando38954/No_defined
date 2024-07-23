@@ -1,17 +1,27 @@
-extends Area2D
+extends Attack
+
+var destination
+
+func start(_position):
+	var rand_vec = Function.rand_Vector2() * 20
+	destination = _position + rand_vec
 
 func _ready():
-	var rand_vec = Function.rand_Vector2() * 20
-	global_position += rand_vec
+	extract("Meteor")
+	global_position = destination + Vector2(-200, -200)
 	$AnimatedSprite2D.play("default")
+	$CollisionShape2D.disabled = true
 	PlayerStatus.need_reset = true
-	
-func start(_position):
-	global_position = _position
-	
+
 func _process(delta):
 	if $AnimatedSprite2D.frame <= 5:
-		global_position += Vector2(1.5, 1.5)
+		global_position.x = move_toward(global_position.x, destination.x, 1.5)
+		global_position.y = move_toward(global_position.y, destination.y, 1.5)
+	else:
+		$CollisionShape2D.disabled = false
 
-func _on_animated_sprite_2d_animation_finished():
-	queue_free()
+func _on_body_entered(body):
+	if body is Enemy:
+		body.take_damage(attack.Damage)
+		body.timer_stun = attack.StunTime
+		body.timer_burn = attack.BurnTime

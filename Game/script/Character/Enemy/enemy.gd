@@ -1,15 +1,23 @@
-extends CharacterBody2D
-
 class_name Enemy
+extends CharacterBody2D
 
 const BAR_HIDE_DELAY = 2
 
 var HP = 100
 var timer_bar = 0
 var velocity_modifier = Vector2(0, 0)
+var timer_stun = 0
+var timer_burn = 0
 
 func _physics_process(delta):
 	velocity = position.direction_to(PlayerStatus.global_position) * 20
+	if timer_stun > 0:
+		velocity = Vector2(0, 0)
+		timer_stun = move_toward(timer_stun, 0, delta)
+	if timer_burn > 0:
+		take_damage(.1)
+		timer_burn = move_toward(timer_burn, 0, delta)
+	
 	velocity += velocity_modifier
 	
 	update_HP()

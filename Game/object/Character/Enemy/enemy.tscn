@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://cbfs46vts7r6y"]
 
-[ext_resource type="Script" path="res://script/Character/enemy.gd" id="1_bitpe"]
-[ext_resource type="Texture2D" uid="uid://b1l1e42nd8y4w" path="res://assets/testAsset/enemy.png" id="1_n5fqg"]
+[ext_resource type="Script" path="res://script/Character/Enemy/enemy.gd" id="1_pdvat"]
+[ext_resource type="Texture2D" uid="uid://b1l1e42nd8y4w" path="res://assets/testAsset/enemy.png" id="2_2j8kb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s084g"]
-atlas = ExtResource("1_n5fqg")
+atlas = ExtResource("2_2j8kb")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a008o"]
@@ -27,7 +27,7 @@ bg_color = Color(0.0666667, 0.713726, 0.203922, 1)
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 4
-script = ExtResource("1_bitpe")
+script = ExtResource("1_pdvat")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_a008o")

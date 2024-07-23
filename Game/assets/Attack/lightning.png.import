@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhbe54xrhf2vb"
-path="res://.godot/imported/turtleshell_front.png-bc20d75c8d5c5900a5dd9972517590f8.ctex"
+uid="uid://be6l8q7bfeqbr"
+path="res://.godot/imported/lightning.png-de0c884ce9c0bb5b7a2c61cd514f0641.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Attack/turtleshell_front.png"
-dest_files=["res://.godot/imported/turtleshell_front.png-bc20d75c8d5c5900a5dd9972517590f8.ctex"]
+source_file="res://assets/Attack/lightning.png"
+dest_files=["res://.godot/imported/lightning.png-de0c884ce9c0bb5b7a2c61cd514f0641.ctex"]
 
 [params]
 

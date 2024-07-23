@@ -1,0 +1,147 @@
+[gd_scene load_steps=21 format=3 uid="uid://4qm24ihxsmhd"]
+
+[ext_resource type="Script" path="res://script/Attack/tornado.gd" id="1_qi4gr"]
+[ext_resource type="Texture2D" uid="uid://db7w3a0b55tdh" path="res://assets/Attack/tornado.png" id="2_8jcpr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80wph"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bsg62"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3g1g"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj4cw"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pamew"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2c8f3"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouw4n"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_133s3"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p64sp"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y58r0"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irjuk"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h84v3"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(384, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bejjv"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcbrx"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(128, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uieb"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(256, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyde3"]
+atlas = ExtResource("2_8jcpr")
+region = Rect2(384, 384, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qkl82"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80wph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bsg62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3g1g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aj4cw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pamew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2c8f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouw4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_133s3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p64sp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y58r0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irjuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h84v3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bejjv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcbrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uieb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyde3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ddcjv"]
+radius = 30.0
+
+[node name="Tornado" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_qi4gr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -24)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_qkl82")
+frame = 15
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ddcjv")
+one_way_collision_margin = 0.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
