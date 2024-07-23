@@ -130,6 +130,11 @@ func _physics_process(delta):
 	PlayerStatus.global_position = global_position
 	rotation = PlayerStatus.direction.angle()
 	
+	if PlayerStatus.HP > 20:
+		HP_change(-1)
+	if PlayerStatus.backHP == PlayerStatus.HP:
+		PlayerStatus.HP = PlayerStatus.maxHP
+	
 	if PlayerStatus.need_reset == true:
 		reset_attack()
 	$MainElement.global_rotation = 0
@@ -137,10 +142,11 @@ func _physics_process(delta):
 	
 	dash_event(delta)
 	attack_event(delta)
+	HP_smoothing()
 	walk_event()
 	move()
 
-#==================================== Attack Type =================================
+#==================================== Attack =================================
 func call_attack():
 	var attack_type
 	
@@ -162,7 +168,8 @@ func call_attack():
 		
 	if attack_type != null:
 		get_tree().root.add_child(attack_type)
-	
+
+
 func show_range():
 	attack_range = load("res://object/AttackIndicator/circleRange.tscn").instantiate()
 	
@@ -179,3 +186,12 @@ func show_range():
 		
 	add_child(attack_range)
 	attack_range.name = "Range"
+
+#==================================== Attack =================================
+func HP_change(value):
+	PlayerStatus.HP += value
+	if PlayerStatus.HP > PlayerStatus.backHP:
+		PlayerStatus.backHP = PlayerStatus.HP
+
+func HP_smoothing():
+	PlayerStatus.backHP = move_toward(PlayerStatus.backHP, PlayerStatus.HP, .5)

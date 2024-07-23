@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://23nu50f1wdpm"]
+[gd_scene load_steps=9 format=3 uid="uid://23nu50f1wdpm"]
 
 [ext_resource type="Script" path="res://scene/Main.gd" id="1_ddxua"]
 [ext_resource type="Texture2D" uid="uid://bsvijfbig3hsw" path="res://assets/testAsset/TX Tileset Grass.png" id="1_xevoa"]
 [ext_resource type="PackedScene" uid="uid://6h6sxyh31bv7" path="res://object/Character/player.tscn" id="2_8ltt1"]
 [ext_resource type="Texture2D" uid="uid://clcsbggk1xmsh" path="res://assets/BackGround/White.png" id="3_wfj16"]
+[ext_resource type="PackedScene" uid="uid://dkvi1xkkx3frp" path="res://object/UI/GameUI.tscn" id="5_tg2g1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6n8gg"]
 texture = ExtResource("1_xevoa")
@@ -16356,3 +16357,5 @@ limit_right = 384
 limit_bottom = 384
 limit_smoothed = true
 editor_draw_limits = true
+
+[node name="GameUi" parent="." instance=ExtResource("5_tg2g1")]

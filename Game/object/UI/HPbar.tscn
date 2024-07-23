@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://6leo3tej56jr"]
+
+[node name="HPbar" type="ProgressBar"]
+offset_right = 223.0
+offset_bottom = 27.0
+mouse_filter = 2
+show_percentage = false

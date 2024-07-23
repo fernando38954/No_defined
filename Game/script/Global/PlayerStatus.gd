@@ -14,3 +14,8 @@ var in_attack_range = false
 
 var muzzle_position = Vector2(0, 0)
 var direction = Vector2(0, 0)
+
+# =================================== UI ===================================
+var maxHP = 100
+var HP = 100
+var backHP = 100

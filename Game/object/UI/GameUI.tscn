@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkvi1xkkx3frp"]
+
+[ext_resource type="Script" path="res://script/UI/GameUI.gd" id="1_uh4b5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx2x1"]
+bg_color = Color(3.17663e-06, 0.727867, 0.0814755, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hguq7"]
+bg_color = Color(0.743571, 0.573992, 0, 1)
+
+[node name="GameUi" type="CanvasLayer"]
+script = ExtResource("1_uh4b5")
+
+[node name="HPBar" type="ProgressBar" parent="."]
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.95
+anchor_right = 0.7
+anchor_bottom = 0.95
+offset_right = 4.0
+offset_bottom = 27.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_fx2x1")
+show_percentage = false
+
+[node name="BackHPBar" type="ProgressBar" parent="."]
+z_index = -1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.95
+anchor_right = 0.7
+anchor_bottom = 0.95
+offset_right = 4.0
+offset_bottom = 27.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_hguq7")
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.95
+anchor_right = 0.7
+anchor_bottom = 0.95
+offset_right = 4.0
+offset_bottom = 27.0
+horizontal_alignment = 1
