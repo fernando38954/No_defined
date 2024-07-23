@@ -124,19 +124,24 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ddcjv"]
+radius = 30.0
 
 [node name="Tornado" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_xged3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(6, -41)
+position = Vector2(2, -24)
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_qkl82")
 frame = 15
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(5, 5)
 shape = SubResource("CircleShape2D_ddcjv")
 one_way_collision_margin = 0.0
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

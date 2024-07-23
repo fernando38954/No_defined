@@ -10,5 +10,5 @@ func _process(delta):
 	rotation = PlayerStatus.direction.angle()
 
 func _on_animated_sprite_2d_animation_finished():
-	PlayerStatus.can_attack = true
+	PlayerStatus.need_reset = true
 	queue_free()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://6h6sxyh31bv7"]
 
 [ext_resource type="Texture2D" uid="uid://c3a40nye3csv8" path="res://assets/testAsset/player.png" id="1_qc6hb"]
-[ext_resource type="Script" path="res://script/player.gd" id="1_wy7eg"]
+[ext_resource type="Script" path="res://script/Character/player.gd" id="1_wy7eg"]
 [ext_resource type="Texture2D" uid="uid://bnnoagmebja7d" path="res://assets/Elements/Element.png" id="3_wcyjd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_skps4"]
@@ -110,6 +110,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_wy7eg")
 

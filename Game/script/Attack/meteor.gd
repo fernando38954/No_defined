@@ -4,7 +4,7 @@ func _ready():
 	var rand_vec = Function.rand_Vector2() * 20
 	global_position += rand_vec
 	$AnimatedSprite2D.play("default")
-	PlayerStatus.can_attack = true
+	PlayerStatus.need_reset = true
 	
 func start(_position):
 	global_position = _position

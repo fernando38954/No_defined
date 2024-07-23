@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Player
+
 const SPEED = 150.0
 const DASH_CD = 2
 const ATTACK_DELAY = 0.1
@@ -29,7 +31,6 @@ func dash_event(delta):
 		PlayerStatus.can_dash = true
 		$Sound.stream = load("res://assets/SFX/dash_reload.wav")
 		$Sound.play()
-		
 	if Input.is_action_just_pressed("key_dash") and PlayerStatus.can_dash:
 		$Sprite.play("exausted")
 		PlayerStatus.can_dash = false
@@ -38,8 +39,8 @@ func dash_event(delta):
 		
 		reset_attack()
 			
-		velocity.x = PlayerStatus.direction.normalized().x * SPEED * 6
-		velocity.y = PlayerStatus.direction.normalized().y * SPEED * 6
+		velocity.x = input.normalized().x * SPEED * 6
+		velocity.y = input.normalized().y * SPEED * 6
 	
 	timer_dash = move_toward(timer_dash, 0, delta)
 
@@ -93,6 +94,7 @@ func reset_attack():
 	PlayerStatus.can_attack = true
 	PlayerStatus.in_attack = false
 	PlayerStatus.can_move = true
+	PlayerStatus.need_reset = false
 	PlayerStatus.in_attack_range = false
 	range_showed = false
 	if get_node_or_null("Range"):
@@ -122,10 +124,13 @@ func _physics_process(delta):
 	input = Input.get_vector("key_left", "key_right", "key_up", "key_down")
 	PlayerStatus.direction = get_global_mouse_position() - global_position
 	PlayerStatus.muzzle_position = $Muzzle.global_position
+	PlayerStatus.global_position = global_position
 	rotation = PlayerStatus.direction.angle()
 	
-	if PlayerStatus.can_attack == true:
+	if PlayerStatus.need_reset == true:
 		reset_attack()
+	$MainElement.global_rotation = 0
+	$SecondElement.global_rotation = 0
 	
 	dash_event(delta)
 	attack_event(delta)
@@ -159,15 +164,15 @@ func show_range():
 	attack_range = load("res://object/AttackIndicator/circleRange.tscn").instantiate()
 	
 	if attack == Vector2(Element.Air, Element.Air):
-		attack_range.start(100, Type.Area, 40)
+		attack_range.start("Tornado")
 	elif attack == Vector2(Element.Air, Element.Fire):
-		attack_range.start(70, Type.Line, -1)
+		attack_range.start("FireBlade")
 	elif attack == Vector2(Element.Earth, Element.Earth):
-		attack_range.start(100, Type.Area, 20)
+		attack_range.start("Spike")
 	elif attack == Vector2(Element.Earth, Element.Fire):
-		attack_range.start(100, Type.Area, 30)
+		attack_range.start("Meteor")
 	else:
-		attack_range.start(100, Type.Area, 20)
+		attack_range.start()
 		
 	add_child(attack_range)
 	attack_range.name = "Range"

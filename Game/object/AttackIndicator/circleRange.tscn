@@ -16,3 +16,4 @@ shape = SubResource("CircleShape2D_gv6id")
 
 [connection signal="mouse_entered" from="CircleRangeDetector" to="." method="_on_circle_range_mouse_entered"]
 [connection signal="mouse_exited" from="CircleRangeDetector" to="." method="_on_circle_range_mouse_exited"]
+[connection signal="mouse_shape_exited" from="CircleRangeDetector" to="." method="_on_circle_range_detector_mouse_shape_exited"]

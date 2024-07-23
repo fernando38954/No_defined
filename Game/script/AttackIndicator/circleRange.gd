@@ -8,15 +8,19 @@ var radius
 var attack_type
 var attack_radius
 
-func start(_radius, _attack_type, _attack_radius):
-	radius = _radius
-	$CircleRangeDetector/CollisionShape2D.shape.radius = _radius
-	attack_type = _attack_type
-	attack_radius = _attack_radius
+func extract(name):
+	var attack = AttackAttribute.get(name)
+	radius = attack.SpellRange
+	attack_type = attack.AttackType
+	attack_radius = attack.AttackRange
+
+func start(name):
+	extract(name)
+	$CircleRangeDetector/CollisionShape2D.shape.radius = radius
 	if attack_type == Type.Line:
 		PlayerStatus.in_attack_range = true
 		var attack_indicator = load("res://object/AttackIndicator/LineIndicator.tscn").instantiate()
-		attack_indicator.start(_radius)
+		attack_indicator.start(radius)
 		add_child(attack_indicator)
 		attack_indicator.name = "Indicator"
 
