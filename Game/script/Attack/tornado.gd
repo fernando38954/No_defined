@@ -1,7 +1,7 @@
 extends Attack
 
 func _ready():
-	position = get_global_mouse_position()
+	position = get_global_mouse_position() if PlayerStatus.attack_position == null else PlayerStatus.attack_position
 	$AnimatedSprite2D.play("default")
 	
 	extract("Tornado")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://6h6sxyh31bv7"]
+[gd_scene load_steps=16 format=3 uid="uid://6h6sxyh31bv7"]
 
 [ext_resource type="Texture2D" uid="uid://c3a40nye3csv8" path="res://assets/testAsset/player.png" id="1_qc6hb"]
 [ext_resource type="Script" path="res://script/Character/player.gd" id="1_wy7eg"]
@@ -109,6 +109,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nwjqm"]
+bg_color = Color(0, 0.531112, 0.0266377, 1)
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 4
 motion_mode = 1
@@ -121,13 +124,13 @@ sprite_frames = SubResource("SpriteFrames_pjrco")
 shape = SubResource("RectangleShape2D_dfkxp")
 
 [node name="MainElement" type="AnimatedSprite2D" parent="."]
-position = Vector2(-4, -12)
+position = Vector2(-5, -16)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ptg2y")
 animation = &"Null"
 
 [node name="SecondElement" type="AnimatedSprite2D" parent="."]
-position = Vector2(4, -12)
+position = Vector2(5, -16)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ptg2y")
 animation = &"Null"
@@ -136,3 +139,13 @@ animation = &"Null"
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(8, 0)
+
+[node name="ChantBar" type="ProgressBar" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+offset_left = -11.0
+offset_top = -12.0
+offset_right = 11.0
+offset_bottom = -8.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_nwjqm")
+show_percentage = false

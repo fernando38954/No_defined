@@ -1,17 +1,20 @@
 extends Attack
 
 var destination
+var identity
 
-func start(_position):
+func start(_position, _identity):
 	var rand_vec = Function.rand_Vector2() * 20
 	destination = _position + rand_vec
+	identity = _identity
 
 func _ready():
 	extract("Meteor")
 	global_position = destination + Vector2(-200, -200)
 	$AnimatedSprite2D.play("default")
 	$CollisionShape2D.disabled = true
-	PlayerStatus.need_reset = true
+	if identity == 0:
+		PlayerStatus.need_reset = true
 
 func _process(delta):
 	if $AnimatedSprite2D.frame <= 5:

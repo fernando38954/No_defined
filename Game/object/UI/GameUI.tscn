@@ -1,12 +1,85 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkvi1xkkx3frp"]
+[gd_scene load_steps=14 format=3 uid="uid://dkvi1xkkx3frp"]
 
 [ext_resource type="Script" path="res://script/UI/GameUI.gd" id="1_uh4b5"]
+[ext_resource type="Texture2D" uid="uid://bnnoagmebja7d" path="res://assets/Elements/Element.png" id="2_hiwtt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx2x1"]
 bg_color = Color(3.17663e-06, 0.727867, 0.0814755, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc2sr"]
+bg_color = Color(0.288518, 0.288518, 0.288518, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hguq7"]
 bg_color = Color(0.743571, 0.573992, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_488dh"]
+bg_color = Color(2.69532e-06, 0.657672, 0.856615, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lldrh"]
+bg_color = Color(0.113981, 0.6204, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vu2y7"]
+atlas = ExtResource("2_hiwtt")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kios8"]
+atlas = ExtResource("2_hiwtt")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibbp0"]
+atlas = ExtResource("2_hiwtt")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otirs"]
+atlas = ExtResource("2_hiwtt")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxem6"]
+atlas = ExtResource("2_hiwtt")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_72dj6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vu2y7")
+}],
+"loop": true,
+"name": &"Air",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kios8")
+}],
+"loop": true,
+"name": &"Earth",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibbp0")
+}],
+"loop": true,
+"name": &"Fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otirs")
+}],
+"loop": true,
+"name": &"Null",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxem6")
+}],
+"loop": true,
+"name": &"Water",
+"speed": 5.0
+}]
 
 [node name="GameUi" type="CanvasLayer"]
 script = ExtResource("1_uh4b5")
@@ -19,6 +92,7 @@ anchor_right = 0.7
 anchor_bottom = 0.95
 offset_right = 4.0
 offset_bottom = 27.0
+mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_fx2x1")
 show_percentage = false
 
@@ -31,10 +105,12 @@ anchor_right = 0.7
 anchor_bottom = 0.95
 offset_right = 4.0
 offset_bottom = 27.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_cc2sr")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hguq7")
 show_percentage = false
 
-[node name="HPLabel" type="Label" parent="."]
+[node name="HPLabel" type="RichTextLabel" parent="."]
 anchors_preset = -1
 anchor_left = 0.02
 anchor_top = 0.95
@@ -42,4 +118,75 @@ anchor_right = 0.7
 anchor_bottom = 0.95
 offset_right = 4.0
 offset_bottom = 27.0
-horizontal_alignment = 1
+bbcode_enabled = true
+
+[node name="ShieldBar" type="ProgressBar" parent="."]
+z_index = -2
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.935
+anchor_right = 0.72
+anchor_bottom = 0.95
+offset_right = 4.0
+offset_bottom = 27.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_488dh")
+value = 50.0
+show_percentage = false
+
+[node name="BackShieldBar" type="ProgressBar" parent="."]
+z_index = -3
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.935
+anchor_right = 0.72
+anchor_bottom = 0.95
+offset_right = 4.0
+offset_bottom = 27.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_lldrh")
+value = 100.0
+show_percentage = false
+
+[node name="ElementSlote1" type="AnimatedSprite2D" parent="."]
+position = Vector2(1164, 537)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_72dj6")
+animation = &"Air"
+
+[node name="ElementSlote2" type="AnimatedSprite2D" parent="."]
+position = Vector2(1242, 605)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_72dj6")
+animation = &"Earth"
+
+[node name="ElementSlote3" type="AnimatedSprite2D" parent="."]
+position = Vector2(1217, 678)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_72dj6")
+animation = &"Fire"
+
+[node name="ElementSlote4" type="AnimatedSprite2D" parent="."]
+position = Vector2(1086, 612)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_72dj6")
+animation = &"Air"
+
+[node name="ElementSlote5" type="AnimatedSprite2D" parent="."]
+position = Vector2(1123, 676)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_72dj6")
+animation = &"Water"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+anchors_preset = -1
+anchor_left = 0.72
+anchor_top = 0.921
+anchor_right = 0.755
+anchor_bottom = 0.98
+offset_left = -1.0
+offset_top = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+value = 50.0
+fill_mode = 5
+radial_initial_angle = 113.1

@@ -4,9 +4,13 @@ extends CharacterBody2D
 const SPEED = 150.0
 const DASH_CD = 2
 const ATTACK_DELAY = 0.1
+const DASH_TIME = .2
 var input = Vector2(0, 0)
 
 var timer_dash = 0
+var timer_immune = 0
+var timer_chant = 0
+var chant_time = -1
 
 var attack = Vector2(0, 0)
 var detect_attack_delay = 0
@@ -35,17 +39,17 @@ func dash_event(delta):
 		PlayerStatus.can_dash = false
 		PlayerStatus.in_dash = true
 		timer_dash = DASH_CD
+		timer_immune = DASH_TIME
 		
-		if not PlayerStatus.in_attack:
-			velocity.x = input.normalized().x * SPEED * 6
-			velocity.y = input.normalized().y * SPEED * 6
+		if (not PlayerStatus.in_attack and input) or (chant_time > 0 and input):
+			velocity = input.normalized() * SPEED * 8
 		else:
-			velocity.x = PlayerStatus.direction.normalized().x * SPEED * 6
-			velocity.y = PlayerStatus.direction.normalized().y * SPEED * 6
+			velocity = PlayerStatus.direction.normalized() * SPEED * 8
 		
 		reset_attack()
 	
 	timer_dash = move_toward(timer_dash, 0, delta)
+	timer_immune = move_toward(timer_immune, 0, delta)
 
 
 func attack_event(delta):
@@ -57,10 +61,7 @@ func attack_event(delta):
 		detect_attack_delay = ATTACK_DELAY
 	if PlayerStatus.in_attack:
 		if Input.is_action_just_pressed("key_attack") and detect_attack_delay == 0 and PlayerStatus.in_attack_range:
-			$Range.queue_free()
-			call_attack()
-			PlayerStatus.in_attack = false
-			PlayerStatus.can_move = true
+			chant()
 		if attack[0] == Element.Null:
 			if Input.is_action_just_pressed("key_up"):
 				attack[0] = Element.Air
@@ -90,6 +91,14 @@ func attack_event(delta):
 		if attack[1] != Element.Null and not range_showed:
 			show_range()
 			range_showed = true
+	if chant_time > 0:
+		timer_chant = move_toward(timer_chant, 0, delta)
+		$ChantBar.value = chant_time - timer_chant
+		if timer_chant == 0:
+			$ChantBar.set_modulate(Color(1,1,1,0))
+			$Range.queue_free()
+			call_attack()
+			chant_time = -1
 
 	detect_attack_delay = move_toward(detect_attack_delay, 0, delta)
 
@@ -99,7 +108,9 @@ func reset_attack():
 	PlayerStatus.can_move = true
 	PlayerStatus.need_reset = false
 	PlayerStatus.in_attack_range = false
+	PlayerStatus.attack_position = null
 	range_showed = false
+	chant_time = -1
 	if get_node_or_null("Range"):
 		$Range.queue_free()
 	if PlayerStatus.can_dash:
@@ -109,6 +120,7 @@ func reset_attack():
 	attack = Vector2(Element.Null, Element.Null)
 	$MainElement.play("Null")
 	$SecondElement.play("Null")
+	$ChantBar.set_modulate(Color(1,1,1,0))
 
 func walk_event():
 	if not PlayerStatus.in_dash and PlayerStatus.can_move and input:
@@ -130,46 +142,16 @@ func _physics_process(delta):
 	PlayerStatus.global_position = global_position
 	rotation = PlayerStatus.direction.angle()
 	
-	if PlayerStatus.HP > 20:
-		HP_change(-1)
-	if PlayerStatus.backHP == PlayerStatus.HP:
-		PlayerStatus.HP = PlayerStatus.maxHP
-	
 	if PlayerStatus.need_reset == true:
 		reset_attack()
-	$MainElement.global_rotation = 0
-	$SecondElement.global_rotation = 0
 	
 	dash_event(delta)
 	attack_event(delta)
-	HP_smoothing()
+	statusBar_smoothing()
 	walk_event()
 	move()
 
 #==================================== Attack =================================
-func call_attack():
-	var attack_type
-	
-	if attack == Vector2(Element.Air, Element.Air):
-		attack_type = load("res://object/Attack/tornado.tscn").instantiate()
-	elif attack == Vector2(Element.Fire, Element.Fire):
-		attack_type = load("res://object/Attack/fireblade.tscn").instantiate()
-	elif attack == Vector2(Element.Earth, Element.Earth):
-		attack_type = load("res://object/Attack/spike.tscn").instantiate()
-	elif attack == Vector2(Element.Earth, Element.Fire):
-		var mouse_position = get_global_mouse_position()
-		for i in 4:
-			attack_type = load("res://object/Attack/meteor.tscn").instantiate()
-			attack_type.start(mouse_position)
-			get_tree().root.add_child(attack_type)
-			await get_tree().create_timer(0.3).timeout
-	else:
-		reset_attack()
-		
-	if attack_type != null:
-		get_tree().root.add_child(attack_type)
-
-
 func show_range():
 	attack_range = load("res://object/AttackIndicator/circleRange.tscn").instantiate()
 	
@@ -187,11 +169,69 @@ func show_range():
 	add_child(attack_range)
 	attack_range.name = "Range"
 
+func chant():
+	if attack == Vector2(Element.Air, Element.Air):
+		chant_time = AttackAttribute.Tornado.ChantTime
+	elif attack == Vector2(Element.Fire, Element.Fire):
+		chant_time = AttackAttribute.FireBlade.ChantTime
+	elif attack == Vector2(Element.Earth, Element.Earth):
+		chant_time = AttackAttribute.Spike.ChantTime
+	elif attack == Vector2(Element.Earth, Element.Fire):
+		chant_time = AttackAttribute.Meteor.ChantTime
+	else:
+		chant_time = AttackAttribute.NULL.ChantTime
+	
+	PlayerStatus.attack_position = get_global_mouse_position()
+	$ChantBar.max_value = chant_time
+	$ChantBar.value = 0
+	$ChantBar.set_modulate(Color(1,1,1,1))
+	timer_chant = chant_time
+
+func call_attack():
+	var attack_type
+	
+	PlayerStatus.in_attack = false
+	PlayerStatus.can_move = true
+	
+	if attack == Vector2(Element.Air, Element.Air):
+		attack_type = load("res://object/Attack/tornado.tscn").instantiate()
+		get_tree().root.add_child(attack_type)
+	elif attack == Vector2(Element.Fire, Element.Fire):
+		attack_type = load("res://object/Attack/fireblade.tscn").instantiate()
+		get_tree().root.add_child(attack_type)
+	elif attack == Vector2(Element.Earth, Element.Earth):
+		attack_type = load("res://object/Attack/spike.tscn").instantiate()
+		get_tree().root.add_child(attack_type)
+	elif attack == Vector2(Element.Earth, Element.Fire):
+		var attack_position = PlayerStatus.attack_position
+		for i in 4:
+			attack_type = load("res://object/Attack/meteor.tscn").instantiate()
+			attack_type.start(attack_position, i)
+			get_tree().root.add_child(attack_type)
+			await get_tree().create_timer(0.3).timeout
+	else:
+		reset_attack()
+
 #==================================== Attack =================================
-func HP_change(value):
-	PlayerStatus.HP += value
+func receive_damage(damage_position, knockback, value):
+	if timer_immune > 0:
+		return
+		
+	var direction = global_position - damage_position
+	velocity += direction.normalized() * SPEED * knockback
+	if velocity.distance_to(Vector2(0, 0)) > SPEED * 5:
+		velocity = velocity.normalized() * SPEED * 5
+	move()
+	
+	PlayerStatus.Shield -= value
+	if PlayerStatus.Shield < 0:
+		PlayerStatus.HP -= abs(PlayerStatus.Shield)
+		PlayerStatus.Shield = 0
+
+func statusBar_smoothing():
 	if PlayerStatus.HP > PlayerStatus.backHP:
 		PlayerStatus.backHP = PlayerStatus.HP
-
-func HP_smoothing():
+	if PlayerStatus.Shield > PlayerStatus.backShield:
+		PlayerStatus.backShield = PlayerStatus.Shield
 	PlayerStatus.backHP = move_toward(PlayerStatus.backHP, PlayerStatus.HP, .5)
+	PlayerStatus.backShield = move_toward(PlayerStatus.backShield, PlayerStatus.Shield, .5)

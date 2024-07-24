@@ -7,6 +7,9 @@ var timer_damage = 0
 
 func extract(name):
 	attack = AttackAttribute.get(name)
+	print(AttackAttribute.get(name).SpellRange)
+	attack.SpellRange = 50
+	print(AttackAttribute.get(name).SpellRange)
 	timer_damage = attack.DamageCD
 
 func _process(delta):
