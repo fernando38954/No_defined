@@ -142,7 +142,6 @@ position = Vector2(8, 0)
 
 [node name="ChantBar" type="ProgressBar" parent="."]
 modulate = Color(1, 1, 1, 0)
-anchors_preset = -1
 offset_left = -11.0
 offset_top = -12.0
 offset_right = 11.0

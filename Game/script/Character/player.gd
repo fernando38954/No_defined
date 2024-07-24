@@ -60,7 +60,7 @@ func attack_event(delta):
 		PlayerStatus.can_move = false
 		detect_attack_delay = ATTACK_DELAY
 	if PlayerStatus.in_attack:
-		if Input.is_action_just_pressed("key_attack") and detect_attack_delay == 0 and PlayerStatus.in_attack_range:
+		if Input.is_action_just_pressed("key_attack") and detect_attack_delay == 0 and PlayerStatus.in_attack_range and not chant_time > 0:
 			chant()
 		if attack[0] == Element.Null:
 			if Input.is_action_just_pressed("key_up"):
