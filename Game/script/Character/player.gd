@@ -276,6 +276,7 @@ func receive_damage(damage_position, knockback, value):
 		PlayerStatus.HP -= abs(PlayerStatus.Shield)
 		PlayerStatus.Shield = 0
 	
+	reset_attack()
 	return true
 
 func statusBar_smoothing():

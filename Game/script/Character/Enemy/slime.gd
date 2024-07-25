@@ -19,19 +19,18 @@ func _ready():
 	$Sprite.play("appear")
 	
 func normal_attack():
-	in_attack = true
 	damage_limit = 1
 	damage_counter = 0
-	$NormalAttackArea/CollisionShape2D.disabled = false
 	$Sprite.play("attack_normal")
+	if $Sprite.frame > 3:
+		$NormalAttackArea/CollisionShape2D.disabled = false
 	velocity = Vector2(0, 0)
 
 func special_attack():
-	in_attack = true
 	damage_limit = 2
 	damage_counter = 0
 	$SpecialAttackArea/CollisionShape2D.disabled = false
-	$Sprite.play("attack_normal")
+	$Sprite.play("attack_special")
 	velocity = position.direction_to(PlayerStatus.global_position) * SPEED * 3 * velocity_rate
 
 func _on_normal_attack_area_body_entered(body):

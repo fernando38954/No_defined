@@ -32,7 +32,8 @@ var timer_attack_special
 # System Control
 const BAR_HIDE_DELAY = 2
 var can_move = false
-var in_attack = false
+var in_normal_attack = false
+var in_special_attack = false
 var player = []
 var timer_bar = 0
 
@@ -83,10 +84,11 @@ func _physics_process(delta):
 	if not can_move:
 		if not timer_blind > 0:
 			velocity = Vector2(0, 0)
-		in_attack = false
+		in_normal_attack = false
+		in_special_attack = false
 		timer_attack_special = SPECIAL_ATTACK_CD
 		timer_attack_normal = NORMAL_ATTACK_CD
-	elif not in_attack:
+	elif not in_normal_attack and not in_special_attack:
 		velocity = position.direction_to(PlayerStatus.global_position) * SPEED * velocity_rate
 		$NormalAttackArea/CollisionShape2D.disabled = true
 		$SpecialAttackArea/CollisionShape2D.disabled = true
@@ -110,21 +112,20 @@ func _physics_process(delta):
 		timer_attack_special = move_toward(timer_attack_special, 0, delta) if global_position.distance_to(PlayerStatus.global_position) < SPECIAL_ATTACK_RANGE else SPECIAL_ATTACK_CD
 		timer_attack_normal = move_toward(timer_attack_normal, 0, delta) if global_position.distance_to(PlayerStatus.global_position) < NORMAL_ATTACK_RANGE else NORMAL_ATTACK_CD
 		
-		if timer_attack_special == 0:
-			timer_attack_special = SPECIAL_ATTACK_CD
-			in_attack = true
-			special_attack()
-		elif timer_attack_normal == 0:
-			timer_attack_normal = NORMAL_ATTACK_CD
-			in_attack = true
-			normal_attack()
+	# Attack
+	if not in_normal_attack and timer_attack_special == 0:
+		in_special_attack = true
+		special_attack()
+	elif not in_special_attack and timer_attack_normal == 0:
+		in_normal_attack = true
+		normal_attack()
 	
 	# Velocity Adjust
 	velocity += velocity_modifier * velocity_rate
 	velocity_modifier = Vector2(0, 0)
 	
 	# Collision Damage
-	if timer_collision_damage == 0 and not in_attack:
+	if timer_collision_damage == 0 and not in_normal_attack and not in_special_attack:
 		for body in player:
 			body.receive_damage(global_position, 3, 5)
 			timer_collision_damage = COLLISION_CD
@@ -176,8 +177,10 @@ func _on_sprite_animation_finished():
 	if $Sprite.animation == "appear":
 		can_move = true
 	if $Sprite.animation == "attack_normal":
-		in_attack = false
+		timer_attack_normal = NORMAL_ATTACK_CD
+		in_normal_attack = false
 	if $Sprite.animation == "attack_special":
-		in_attack = false
+		timer_attack_special = SPECIAL_ATTACK_CD
+		in_special_attack = false
 	if $Sprite.animation == "die":
 		queue_free()
