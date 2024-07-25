@@ -89,7 +89,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_47r2l"]
-radius = 6.5192
+radius = 15.0
 
 [node name="Meteor" type="Area2D"]
 collision_layer = 0
@@ -103,8 +103,7 @@ frame = 10
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 2)
-scale = Vector2(2, 2)
+position = Vector2(-1, 1)
 shape = SubResource("CircleShape2D_47r2l")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

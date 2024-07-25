@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://23nu50f1wdpm"]
+[gd_scene load_steps=19 format=3 uid="uid://23nu50f1wdpm"]
 
 [ext_resource type="Script" path="res://scene/Main.gd" id="1_ddxua"]
 [ext_resource type="Texture2D" uid="uid://bsvijfbig3hsw" path="res://assets/testAsset/TX Tileset Grass.png" id="1_xevoa"]
 [ext_resource type="PackedScene" uid="uid://6h6sxyh31bv7" path="res://object/Character/player.tscn" id="2_8ltt1"]
 [ext_resource type="Texture2D" uid="uid://clcsbggk1xmsh" path="res://assets/BackGround/White.png" id="3_wfj16"]
 [ext_resource type="PackedScene" uid="uid://dkvi1xkkx3frp" path="res://object/UI/GameUI.tscn" id="5_tg2g1"]
+[ext_resource type="Texture2D" uid="uid://w7aid31n4bnc" path="res://assets/BackGround/Portal.png" id="6_qfc1y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6n8gg"]
 texture = ExtResource("1_xevoa")
@@ -16339,6 +16340,70 @@ physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_6n8gg")
 sources/2 = SubResource("TileSetAtlasSource_8vagl")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vkll"]
+atlas = ExtResource("6_qfc1y")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dat8j"]
+atlas = ExtResource("6_qfc1y")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q485w"]
+atlas = ExtResource("6_qfc1y")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm4iy"]
+atlas = ExtResource("6_qfc1y")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mntuh"]
+atlas = ExtResource("6_qfc1y")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3htgs"]
+atlas = ExtResource("6_qfc1y")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwyy0"]
+atlas = ExtResource("6_qfc1y")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i527w"]
+atlas = ExtResource("6_qfc1y")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ug4mg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0vkll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dat8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q485w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dm4iy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mntuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3htgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwyy0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i527w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="GameScene" type="Node2D"]
 script = ExtResource("1_ddxua")
 
@@ -16359,3 +16424,31 @@ limit_smoothed = true
 editor_draw_limits = true
 
 [node name="GameUi" parent="." instance=ExtResource("5_tg2g1")]
+
+[node name="PortalTop" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -355)
+rotation = 1.5708
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ug4mg")
+frame_progress = 0.956805
+
+[node name="PortalLeft" type="AnimatedSprite2D" parent="."]
+position = Vector2(-355, 0)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ug4mg")
+frame_progress = 0.985664
+
+[node name="PortalDown" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 355)
+rotation = 1.5708
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ug4mg")
+frame_progress = 0.0535153
+flip_h = true
+
+[node name="PortalRight" type="AnimatedSprite2D" parent="."]
+position = Vector2(355, 0)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ug4mg")
+frame_progress = 0.220513
+flip_h = true

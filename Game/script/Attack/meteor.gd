@@ -10,8 +10,11 @@ func start(_position, _identity):
 
 func _ready():
 	extract("Meteor")
+	
 	global_position = destination + Vector2(-200, -200)
 	$AnimatedSprite2D.play("default")
+	$AnimatedSprite2D.scale = attack.SpriteScale
+	$CollisionShape2D.scale = attack.SpriteScale
 	$CollisionShape2D.disabled = true
 	if identity == 0:
 		PlayerStatus.need_reset = true
@@ -28,3 +31,4 @@ func _on_body_entered(body):
 		body.take_damage(attack.Damage)
 		body.timer_stun = attack.StunTime
 		body.timer_burn = attack.BurnTime
+		body.burn_damage = attack.BurnDamage

@@ -1,10 +1,11 @@
 extends Attack
 
 func _ready():
+	extract("Spike")
+	
 	position = get_global_mouse_position() if PlayerStatus.attack_position == null else PlayerStatus.attack_position
 	$AnimatedSprite2D.play("default")
-	
-	extract("Spike")
+	$AnimatedSprite2D.scale = attack.SpriteScale
 	$CollisionShape2D.shape.radius = attack.AttackRange
 	
 	PlayerStatus.need_reset = true

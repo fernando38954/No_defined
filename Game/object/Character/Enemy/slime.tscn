@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://cbfs46vts7r6y"]
+[gd_scene load_steps=112 format=3 uid="uid://cbfs46vts7r6y"]
 
 [ext_resource type="Script" path="res://script/Character/Enemy/slime.gd" id="1_rg6uc"]
 [ext_resource type="Texture2D" uid="uid://b2p2cs6x44700" path="res://assets/Enemy/Slime/Appear.png" id="2_3s3l2"]
@@ -726,8 +726,8 @@ animations = [{
 "speed": 13.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_80x0j"]
-size = Vector2(28.5, 19)
+[sub_resource type="CircleShape2D" id="CircleShape2D_yndjr"]
+radius = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsjwj"]
 bg_color = Color(0.0666667, 0.713726, 0.203922, 1)
@@ -735,9 +735,16 @@ bg_color = Color(0.0666667, 0.713726, 0.203922, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rh5h3"]
 size = Vector2(28, 11)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bmbm"]
+size = Vector2(25, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jehus"]
+size = Vector2(25, 20)
+
 [node name="Slime" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 6
+safe_margin = 0.2
 script = ExtResource("1_rg6uc")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
@@ -749,7 +756,8 @@ frame = 9
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_80x0j")
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_yndjr")
 
 [node name="HPbar" type="ProgressBar" parent="."]
 offset_left = -12.0
@@ -775,11 +783,23 @@ position = Vector2(0, 3)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NormalAttackArea"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_rh5h3")
+position = Vector2(12.5, -8)
+shape = SubResource("RectangleShape2D_1bmbm")
+disabled = true
+debug_color = Color(0.988553, 0, 0.300688, 0.42)
+
+[node name="SpecialAttackArea" type="Area2D" parent="."]
+position = Vector2(0, 3)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpecialAttackArea"]
+position = Vector2(0.5, -4)
+shape = SubResource("RectangleShape2D_jehus")
+disabled = true
 debug_color = Color(0.988553, 0, 0.300688, 0.42)
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_exited" from="DamageArea" to="." method="_on_damage_area_body_exited"]
 [connection signal="body_entered" from="NormalAttackArea" to="." method="_on_normal_attack_area_body_entered"]
+[connection signal="body_entered" from="SpecialAttackArea" to="." method="_on_special_attack_area_body_entered"]

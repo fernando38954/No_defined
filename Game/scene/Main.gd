@@ -1,15 +1,21 @@
 extends Node
 
-const ENEMY_SPAWN_CD = 2
+const NEARBY_ENEMY_SPAWN_CD = 20
+const PORTAL_ENEMY_SPWAN_CD = 20
 
-var timer_enemy = 0
-var timer_drop = 5
+var timer_nearby_enemy_spawn = 0
+var timer_portal_enemy_spawn = 20
 
 func _ready():
 	Function.reset_all()
+	$PortalTop.play("default")
+	$PortalLeft.play("default")
+	$PortalDown.play("default")
+	$PortalRight.play("default")
 
 func _process(delta):
-	if timer_enemy == 0:
+	# Nearby enemy spawn
+	if timer_nearby_enemy_spawn == 0:
 		var enemy = load("res://object/Character/Enemy/Slime.tscn").instantiate()
 		var rand_position = Vector2(randf_range(-384, 384), randf_range(-384, 384))
 		var diff = abs(PlayerStatus.global_position - rand_position)
@@ -21,16 +27,57 @@ func _process(delta):
 			diff = abs(PlayerStatus.global_position - rand_position)
 		enemy.global_position = rand_position
 		add_child(enemy)
-		timer_enemy = ENEMY_SPAWN_CD
-	timer_enemy = move_toward(timer_enemy, 0, delta)
+		timer_nearby_enemy_spawn = NEARBY_ENEMY_SPAWN_CD
+	timer_nearby_enemy_spawn = move_toward(timer_nearby_enemy_spawn, 0, delta)
 	
-	if timer_drop == 0:
+	# Portal enemy spawn
+	if timer_portal_enemy_spawn == 0:
+		for i in randi_range(2, 4):
+			var enemy = load("res://object/Character/Enemy/Slime.tscn").instantiate()
+			var rand_position = Vector2(randf_range(-30, 30), randf_range(0, 40))
+			enemy.global_position = $PortalTop.global_position + rand_position
+			add_child(enemy)
+		for i in randi_range(2, 4):
+			var enemy = load("res://object/Character/Enemy/Slime.tscn").instantiate()
+			var rand_position = Vector2(randf_range(0, 40), randf_range(-30, 30))
+			enemy.global_position = $PortalLeft.global_position + rand_position
+			add_child(enemy)
+		for i in randi_range(2, 4):
+			var enemy = load("res://object/Character/Enemy/Slime.tscn").instantiate()
+			var rand_position = Vector2(randf_range(-30, 30), randf_range(-40, 0))
+			enemy.global_position = $PortalDown.global_position + rand_position
+			add_child(enemy)
+		for i in randi_range(2, 4):
+			var enemy = load("res://object/Character/Enemy/Slime.tscn").instantiate()
+			var rand_position = Vector2(randf_range(-40, 0), randf_range(-30, 30))
+			enemy.global_position = $PortalRight.global_position + rand_position
+			add_child(enemy)
+		timer_portal_enemy_spawn = PORTAL_ENEMY_SPWAN_CD
+	timer_portal_enemy_spawn = move_toward(timer_portal_enemy_spawn, 0, delta)
+	
+	if Input.is_action_just_pressed("TestAir"):
 		var drop = load("res://object/Drops/ElementBall.tscn").instantiate()
 		drop.global_position = Vector2(0, 0)
-		drop.start(randi_range(1,4))
+		drop.start(1)
 		add_child(drop)
-		timer_drop = 10
-	timer_drop = move_toward(timer_drop, 0, delta)
+	
+	if Input.is_action_just_pressed("TestFire"):
+		var drop = load("res://object/Drops/ElementBall.tscn").instantiate()
+		drop.global_position = Vector2(0, 0)
+		drop.start(2)
+		add_child(drop)
+	
+	if Input.is_action_just_pressed("TestEarth"):
+		var drop = load("res://object/Drops/ElementBall.tscn").instantiate()
+		drop.global_position = Vector2(0, 0)
+		drop.start(3)
+		add_child(drop)
+	
+	if Input.is_action_just_pressed("TestWater"):
+		var drop = load("res://object/Drops/ElementBall.tscn").instantiate()
+		drop.global_position = Vector2(0, 0)
+		drop.start(4)
+		add_child(drop)
 	
 	if PlayerStatus.HP <= 0:
 		get_tree().change_scene_to_file("res://scene/Main.tscn")

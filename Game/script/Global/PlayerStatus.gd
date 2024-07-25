@@ -29,15 +29,13 @@ var maxShield = 100
 var Shield = 100
 var backShield = 100
 
-var Element1 = Element.Null
-var Element2 = Element.Null
-var Element3 = Element.Null
-var Element4 = Element.Null
-var Element5 = Element.Null
+var ElementSet = [Element.Null, Element.Null, Element.Null, Element.Null, Element.Null]
+
+var ElementQty = [5, 0, 0, 0, 0]
 
 func getElement(type):
-	Element5 = Element4
-	Element4 = Element3
-	Element3 = Element2
-	Element2 = Element1
-	Element1 = type
+	ElementQty[ElementSet[4]] -= 1
+	ElementQty[type] += 1
+	for i in range(4, 0, -1):
+		ElementSet[i] = ElementSet[i-1]
+	ElementSet[0] = type

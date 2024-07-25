@@ -26,14 +26,10 @@ func reset_all():
 	PlayerStatus.direction = Vector2(0, 0)
 
 	PlayerStatus.maxHP = 100
-	PlayerStatus.HP = 100
+	PlayerStatus.HP = 10
 	PlayerStatus.backHP = 100
 	PlayerStatus.maxShield = 100
-	PlayerStatus.Shield = 100
+	PlayerStatus.Shield = 10
 	PlayerStatus.backShield = 100
 
-	PlayerStatus.Element1 = PlayerStatus.Element.Null
-	PlayerStatus.Element2 = PlayerStatus.Element.Null
-	PlayerStatus.Element3 = PlayerStatus.Element.Null
-	PlayerStatus.Element4 = PlayerStatus.Element.Null
-	PlayerStatus.Element5 = PlayerStatus.Element.Null
+	PlayerStatus.ElementSet = [PlayerStatus.Element.Null, PlayerStatus.Element.Null, PlayerStatus.Element.Null, PlayerStatus.Element.Null, PlayerStatus.Element.Null]

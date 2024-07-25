@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://q4mi2qs64lon"
-path="res://.godot/imported/Rui.jpg-66f6cb60711f47d04f7cdba0630de1e7.ctex"
+uid="uid://w7aid31n4bnc"
+path="res://.godot/imported/Portal.png-bb76d3cf1fa28727d540368e0e49a9c1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/testAsset/Rui.jpg"
-dest_files=["res://.godot/imported/Rui.jpg-66f6cb60711f47d04f7cdba0630de1e7.ctex"]
+source_file="res://assets/BackGround/Portal.png"
+dest_files=["res://.godot/imported/Portal.png-bb76d3cf1fa28727d540368e0e49a9c1.ctex"]
 
 [params]
 
