@@ -1,3 +1,4 @@
+class_name Slime
 extends Enemy
 
 var damage_limit = 0
@@ -42,3 +43,6 @@ func _on_special_attack_area_body_entered(body):
 	if body is Player and damage_counter < damage_limit:
 		damage_counter += 1
 		body.receive_damage(global_position, 4, 5)
+
+func _on_body_died():
+	queue_free()

@@ -17,6 +17,10 @@ var direction = Vector2(0, 0)
 
 var attack_position = null
 
+# ================================= Debuff =================================
+var in_burnArea = 0
+var in_frozenArea = 0
+
 # =================================== UI ===================================
 enum Element {
 	Null, Air, Fire, Earth, Water

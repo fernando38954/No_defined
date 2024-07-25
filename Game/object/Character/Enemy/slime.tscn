@@ -764,7 +764,7 @@ script = ExtResource("1_rg6uc")
 position = Vector2(0, -6)
 scale = Vector2(0.3, 0.276)
 sprite_frames = SubResource("SpriteFrames_a008o")
-animation = &"attack_normal"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -809,6 +809,7 @@ shape = SubResource("RectangleShape2D_jehus")
 disabled = true
 debug_color = Color(0.988553, 0, 0.300688, 0.42)
 
+[connection signal="body_died" from="." to="." method="_on_body_died"]
 [connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_exited" from="DamageArea" to="." method="_on_damage_area_body_exited"]

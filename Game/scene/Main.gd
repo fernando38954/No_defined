@@ -3,8 +3,8 @@ extends Node
 const NEARBY_ENEMY_SPAWN_CD = 20
 const PORTAL_ENEMY_SPWAN_CD = 20
 
-var timer_nearby_enemy_spawn = 0
-var timer_portal_enemy_spawn = 20
+var timer_nearby_enemy_spawn = 20
+var timer_portal_enemy_spawn = 4
 
 func _ready():
 	Function.reset_all()
@@ -16,7 +16,7 @@ func _ready():
 func _process(delta):
 	# Nearby enemy spawn
 	if timer_nearby_enemy_spawn == 0:
-		var enemy = load("res://object/Character/Enemy/Slime.tscn").instantiate()
+		var enemy = load("res://object/Character/Enemy/slime.tscn").instantiate()
 		var rand_position = Vector2(randf_range(-384, 384), randf_range(-384, 384))
 		var diff = abs(PlayerStatus.global_position - rand_position)
 		while diff.x < 50 or diff.x > 120:
@@ -32,26 +32,33 @@ func _process(delta):
 	
 	# Portal enemy spawn
 	if timer_portal_enemy_spawn == 0:
-		for i in randi_range(2, 4):
-			var enemy = load("res://object/Character/Enemy/Slime.tscn").instantiate()
+		# Special Slime
+		var special_enemy_id = [randi_range(0, 3), randi_range(0, 3), randi_range(0, 3), randi_range(0, 3)]
+		var special_enemy = [load("res://object/Character/Enemy/airslime.tscn"), load("res://object/Character/Enemy/fireslime.tscn"),
+							load("res://object/Character/Enemy/earthslime.tscn"), load("res://object/Character/Enemy/waterslime.tscn")]
+			
+		# Normal Slime
+		for i in randi_range(2, 4) + 1:
+			var enemy = load("res://object/Character/Enemy/slime.tscn").instantiate() if i > 0 else special_enemy[special_enemy_id[0]].instantiate()
 			var rand_position = Vector2(randf_range(-30, 30), randf_range(0, 40))
 			enemy.global_position = $PortalTop.global_position + rand_position
 			add_child(enemy)
-		for i in randi_range(2, 4):
-			var enemy = load("res://object/Character/Enemy/Slime.tscn").instantiate()
+		for i in randi_range(2, 4) + 1:
+			var enemy = load("res://object/Character/Enemy/slime.tscn").instantiate() if i > 0 else special_enemy[special_enemy_id[1]].instantiate()
 			var rand_position = Vector2(randf_range(0, 40), randf_range(-30, 30))
 			enemy.global_position = $PortalLeft.global_position + rand_position
 			add_child(enemy)
-		for i in randi_range(2, 4):
-			var enemy = load("res://object/Character/Enemy/Slime.tscn").instantiate()
+		for i in randi_range(2, 4) + 1:
+			var enemy = load("res://object/Character/Enemy/slime.tscn").instantiate() if i > 0 else special_enemy[special_enemy_id[2]].instantiate()
 			var rand_position = Vector2(randf_range(-30, 30), randf_range(-40, 0))
 			enemy.global_position = $PortalDown.global_position + rand_position
 			add_child(enemy)
-		for i in randi_range(2, 4):
-			var enemy = load("res://object/Character/Enemy/Slime.tscn").instantiate()
+		for i in randi_range(2, 4) + 1:
+			var enemy = load("res://object/Character/Enemy/slime.tscn").instantiate() if i > 0 else special_enemy[special_enemy_id[3]].instantiate()
 			var rand_position = Vector2(randf_range(-40, 0), randf_range(-30, 30))
 			enemy.global_position = $PortalRight.global_position + rand_position
 			add_child(enemy)
+		
 		timer_portal_enemy_spawn = PORTAL_ENEMY_SPWAN_CD
 	timer_portal_enemy_spawn = move_toward(timer_portal_enemy_spawn, 0, delta)
 	

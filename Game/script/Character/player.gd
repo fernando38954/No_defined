@@ -150,6 +150,7 @@ func _physics_process(delta):
 	if PlayerStatus.need_reset == true:
 		reset_attack()
 	
+	burn_damage(delta)
 	dash_event(delta)
 	attack_event(delta)
 	statusBar_smoothing()
@@ -200,7 +201,7 @@ func show_range():
 	attack_range.name = "Range"
 
 func chant():
-	chant_time = AttackAttribute.export(attack_name).ChantTime
+	chant_time = AttackAttribute.export(attack_name).ChantTime * (1 + 0.1 * PlayerStatus.in_frozenArea)
 	PlayerStatus.attack_position = get_global_mouse_position()
 	chant_time = max(chant_time, 0)
 	$ChantBar.max_value = chant_time
@@ -275,9 +276,15 @@ func receive_damage(damage_position, knockback, value):
 	if PlayerStatus.Shield < 0:
 		PlayerStatus.HP -= abs(PlayerStatus.Shield)
 		PlayerStatus.Shield = 0
+		reset_attack()
 	
-	reset_attack()
 	return true
+
+func burn_damage(delta):
+	PlayerStatus.Shield -= PlayerStatus.in_burnArea * delta / 2
+	if PlayerStatus.Shield < 0:
+		PlayerStatus.HP -= abs(PlayerStatus.Shield)
+		PlayerStatus.Shield = 0
 
 func statusBar_smoothing():
 	if PlayerStatus.HP > PlayerStatus.backHP:

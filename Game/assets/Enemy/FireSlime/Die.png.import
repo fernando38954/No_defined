@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b66d3e7i56vgy"
-path="res://.godot/imported/Look Around.png-bfa75a824240bde34c4da7732dab7488.ctex"
+uid="uid://xfkjhwp8ag1d"
+path="res://.godot/imported/Die.png-b402fbfbc9f422c821f357a8f04def63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemy/Slime/Look Around.png"
-dest_files=["res://.godot/imported/Look Around.png-bfa75a824240bde34c4da7732dab7488.ctex"]
+source_file="res://assets/Enemy/FireSlime/Die.png"
+dest_files=["res://.godot/imported/Die.png-b402fbfbc9f422c821f357a8f04def63.ctex"]
 
 [params]
 

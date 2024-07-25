@@ -1,6 +1,8 @@
 class_name Enemy
 extends CharacterBody2D
 
+signal body_died
+
 # Status - Setting on ready
 var HP
 var WEIGHT
@@ -54,29 +56,40 @@ func _ready():
 	$Sprite.play("appear")
 
 func _physics_process(delta):
+	# Enemy Special
+	additional_process(delta)
+	
+	# Check Status
+	if HP <= 0:
+		velocity = Vector2(0, 0)
+		can_move = false
+		$Sprite.play("die")
+		$CollisionShape2D.disabled = true
+		$DamageArea/CollisionShape2D.disabled = true
+		
 	# Debuff
-	if timer_blind > 0:
+	elif timer_blind > 0:
 		destination_blind = Vector2(randf_range(-384, 384), randf_range(-384, 384)) if destination_blind == Vector2(0, 0) else destination_blind
 		velocity = position.direction_to(destination_blind) * SPEED * velocity_rate
 		can_move = false
 		timer_blind = move_toward(timer_blind, 0, delta)
-		if timer_blind == 0 and HP > 0:
+		if timer_blind == 0:
 			can_move = true
 			destination_blind = Vector2(0, 0)
-	if timer_stun > 0:
+	elif timer_stun > 0:
 		can_move = false
 		$Sprite.play("stun")
 		timer_stun = move_toward(timer_stun, 0, delta)
-		if timer_stun == 0 and HP > 0:
+		if timer_stun == 0:
 			can_move = true
-	if timer_slow > 0:
+	elif timer_slow > 0:
 		timer_slow = move_toward(timer_slow, 0, delta)
 		if timer_slow == 0:
 			velocity_rate = 1
-	if timer_poison > 0:
+	elif timer_poison > 0:
 		take_damage(poison_damage)
 		timer_poison = move_toward(timer_poison, 0, delta)
-	if timer_burn > 0:
+	elif timer_burn > 0:
 		take_damage(burn_damage)
 		timer_burn = move_toward(timer_burn, 0, delta)
 	
@@ -142,12 +155,6 @@ func take_damage(damage):
 	HP -= damage
 	if HP > 0:
 		update_HP()
-	if HP <= 0:
-		velocity = Vector2(0, 0)
-		can_move = false
-		$Sprite.play("die")
-		$CollisionShape2D.disabled = true
-		$DamageArea/CollisionShape2D.disabled = true
 
 func update_HP():
 	if HP != $HPbar.value:
@@ -163,6 +170,9 @@ func normal_attack():
 
 func special_attack():
 	# Override
+	pass
+
+func additional_process(delta):
 	pass
 
 func _on_damage_area_body_entered(body):
@@ -183,4 +193,4 @@ func _on_sprite_animation_finished():
 		timer_attack_special = SPECIAL_ATTACK_CD
 		in_special_attack = false
 	if $Sprite.animation == "die":
-		queue_free()
+		body_died.emit()
