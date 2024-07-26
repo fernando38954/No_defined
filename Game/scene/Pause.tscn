@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://5lcmgapughe8"]
+
+[ext_resource type="Script" path="res://scene/Pause.gd" id="1_ml37i"]
+[ext_resource type="Texture2D" uid="uid://d0knf36g2fob2" path="res://assets/BackGround/Pause.png" id="1_u5up0"]
+[ext_resource type="Theme" uid="uid://vq2dhbf6gvoi" path="res://assets/BackGround/theme_button.tres" id="3_s2fnl"]
+[ext_resource type="PackedScene" uid="uid://q66jgnek1mva" path="res://scene/AttackBook.tscn" id="4_3glta"]
+
+[node name="Pause" type="Control"]
+process_mode = 2
+z_index = 10
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ml37i")
+
+[node name="Menu" type="Sprite2D" parent="."]
+texture = ExtResource("1_u5up0")
+
+[node name="AttackBook" type="Button" parent="Menu"]
+offset_left = -47.0
+offset_top = -31.0
+offset_right = 43.0
+theme = ExtResource("3_s2fnl")
+theme_override_font_sizes/font_size = 13
+text = "Attack Book"
+
+[node name="Return" type="Button" parent="Menu"]
+offset_left = -97.0
+offset_top = 4.0
+offset_right = -7.0
+offset_bottom = 35.0
+theme = ExtResource("3_s2fnl")
+text = "Return"
+
+[node name="Exit" type="Button" parent="Menu"]
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 97.0
+offset_bottom = 35.0
+theme = ExtResource("3_s2fnl")
+text = "Exit"
+
+[node name="AttackBook" parent="." instance=ExtResource("4_3glta")]
+visible = false
+scale = Vector2(0.5, 0.5)
+
+[connection signal="pressed" from="Menu/AttackBook" to="." method="_on_attack_book_pressed"]
+[connection signal="pressed" from="Menu/Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="Menu/Exit" to="." method="_on_exit_pressed"]

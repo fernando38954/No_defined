@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://x20lb6hquyf"]
+[gd_scene load_steps=14 format=3 uid="uid://x20lb6hquyf"]
 
 [ext_resource type="Script" path="res://scene/Title.gd" id="1_vx6yw"]
 [ext_resource type="Texture2D" uid="uid://bnnoagmebja7d" path="res://assets/Elements/Element.png" id="2_i8r6e"]
 [ext_resource type="Texture2D" uid="uid://c3a40nye3csv8" path="res://assets/testAsset/player.png" id="3_7ixtv"]
-[ext_resource type="Texture2D" uid="uid://uik8jcdxe65g" path="res://assets/BackGround/emerald.jpg" id="4_0626n"]
+[ext_resource type="Texture2D" uid="uid://cns6i7ptbp4ll" path="res://assets/BackGround/background.png" id="4_bw0gt"]
+[ext_resource type="Texture2D" uid="uid://b7hyijbdbljoh" path="res://assets/BackGround/cauldron.png" id="5_7akr6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rmpnt"]
 font_size = 50
@@ -70,38 +71,40 @@ script = ExtResource("1_vx6yw")
 
 [node name="Start" type="Button" parent="."]
 layout_mode = 0
-offset_left = 548.0
-offset_top = 431.0
-offset_right = 725.0
-offset_bottom = 484.0
+offset_left = 500.0
+offset_top = 220.0
+offset_right = 677.0
+offset_bottom = 273.0
 text = "Start"
 
 [node name="Credits" type="Button" parent="."]
-offset_left = 548.0
-offset_top = 501.0
-offset_right = 725.0
-offset_bottom = 554.0
+layout_mode = 0
+offset_left = 750.0
+offset_top = 220.0
+offset_right = 927.0
+offset_bottom = 273.0
 text = "Credits"
 
 [node name="Exit" type="Button" parent="."]
-offset_left = 548.0
-offset_top = 571.0
-offset_right = 725.0
-offset_bottom = 624.0
+layout_mode = 0
+offset_left = 1000.0
+offset_top = 220.0
+offset_right = 1177.0
+offset_bottom = 273.0
 text = "Exit
 "
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
-offset_left = 546.0
-offset_top = 184.0
-offset_right = 722.0
-offset_bottom = 281.0
-text = "Wizard"
+offset_left = 736.0
+offset_top = 87.0
+offset_right = 947.0
+offset_bottom = 187.0
+text = "Wizard P"
 label_settings = SubResource("LabelSettings_rmpnt")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(636, 222)
+position = Vector2(830, 721)
 rotation = 6.28319
 
 [node name="Air" type="AnimatedSprite2D" parent="Marker2D"]
@@ -128,15 +131,20 @@ sprite_frames = SubResource("SpriteFrames_e51xr")
 frame = 3
 
 [node name="P" type="AnimatedSprite2D" parent="."]
-position = Vector2(715, 224)
-scale = Vector2(3, 3)
+z_index = -1
+position = Vector2(274, 275)
+scale = Vector2(15, 15)
 sprite_frames = SubResource("SpriteFrames_5owdc")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="back" type="Sprite2D" parent="."]
+z_index = -5
+position = Vector2(640, 360)
+texture = ExtResource("4_bw0gt")
+
+[node name="cauldron" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(637, 368)
-scale = Vector2(2.548, 1.464)
-texture = ExtResource("4_0626n")
+position = Vector2(640, 360)
+texture = ExtResource("5_7akr6")
 
 [connection signal="pressed" from="Start" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]

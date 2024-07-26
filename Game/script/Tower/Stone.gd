@@ -1,7 +1,7 @@
 class_name Stone
 extends CharacterBody2D
 
-const SpawnCD = 3
+const SpawnCD = 30
 var timer_spawn = SpawnCD
 
 var golem = ["res://object/Character/Enemy/airgolem.tscn", "res://object/Character/Enemy/firegolem.tscn",
@@ -11,8 +11,7 @@ func _physics_process(delta):
 	if Function.erase:
 		queue_free()
 		
-	Function.stoneHP += delta
-	$ProgressBar.value = Function.stoneHP
+	Function.stoneHP = min(Function.stoneHP + 5 * delta, 3000)
 	
 	if timer_spawn == 0:
 		for i in 4:

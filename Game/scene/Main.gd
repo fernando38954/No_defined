@@ -10,12 +10,20 @@ var timer_spawn_stone = 5
 
 func _ready():
 	Function.reset_all()
+	$GameUi/Pause.hide()
 	$PortalTop.play("default")
 	$PortalLeft.play("default")
 	$PortalDown.play("default")
 	$PortalRight.play("default")
 
 func _process(delta):	
+	# Pause
+	if Input.is_action_just_pressed("key_pause"):
+		$GameUi/Pause.show()
+		$GameUi/Pause.active = true
+		$GameUi/Pause.delay_pause = $GameUi/Pause.PauseCD
+		get_tree().paused = true
+	
 	# Nearby enemy spawn
 	if timer_nearby_enemy_spawn == 0:
 		var enemy = load("res://object/Character/Enemy/slime.tscn").instantiate()

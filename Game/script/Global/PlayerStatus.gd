@@ -2,9 +2,11 @@ extends Node
 
 var global_position = Vector2(0, 0)
 
+const DASH_CD = 2
 var can_move = true
 var can_dash = true
 var in_dash = false
+var timer_dash = 0
 
 var can_attack = true
 var in_attack = false

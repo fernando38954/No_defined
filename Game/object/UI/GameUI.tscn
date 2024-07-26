@@ -1,7 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dkvi1xkkx3frp"]
+[gd_scene load_steps=19 format=3 uid="uid://dkvi1xkkx3frp"]
 
 [ext_resource type="Script" path="res://script/UI/GameUI.gd" id="1_uh4b5"]
 [ext_resource type="Texture2D" uid="uid://bnnoagmebja7d" path="res://assets/Elements/Element.png" id="2_hiwtt"]
+[ext_resource type="Texture2D" uid="uid://cwr2hjbh6r6w7" path="res://assets/UI/Dash.png" id="3_bqp5h"]
+[ext_resource type="Texture2D" uid="uid://c43s847gbxb6a" path="res://assets/UI/DashCover.png" id="4_ch1jd"]
+[ext_resource type="PackedScene" uid="uid://5lcmgapughe8" path="res://scene/Pause.tscn" id="5_5pce4"]
+[ext_resource type="PackedScene" uid="uid://drrpeyioy1s3" path="res://scene/Confirm.tscn" id="6_pkdqd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx2x1"]
 bg_color = Color(3.17663e-06, 0.727867, 0.0814755, 1)
@@ -81,6 +85,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ki06"]
+bg_color = Color(0.672305, 1.76881e-06, 6.257e-07, 1)
+
 [node name="GameUi" type="CanvasLayer"]
 script = ExtResource("1_uh4b5")
 
@@ -146,6 +153,24 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_lldrh")
 value = 100.0
 show_percentage = false
 
+[node name="DashTimer" type="TextureProgressBar" parent="."]
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.92
+anchor_right = 0.75
+anchor_bottom = 0.92
+offset_left = -16.0
+offset_top = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(4, 4)
+mouse_filter = 2
+step = 0.01
+value = 100.0
+fill_mode = 5
+texture_under = ExtResource("3_bqp5h")
+texture_progress = ExtResource("4_ch1jd")
+
 [node name="ElementSlote1" type="AnimatedSprite2D" parent="."]
 position = Vector2(1164, 537)
 scale = Vector2(3, 3)
@@ -176,17 +201,38 @@ scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_72dj6")
 animation = &"Water"
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
-anchors_preset = -1
-anchor_left = 0.72
-anchor_top = 0.921
-anchor_right = 0.755
-anchor_bottom = 0.98
-offset_left = -1.0
-offset_top = -1.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="StoneName" type="Label" parent="."]
+offset_left = 574.0
+offset_top = 21.0
+offset_right = 715.0
+offset_bottom = 44.0
+text = "Philosopher's Stone"
+
+[node name="StoneHP" type="ProgressBar" parent="."]
+offset_left = 150.0
+offset_top = 53.0
+offset_right = 1136.0
+offset_bottom = 80.0
 mouse_filter = 2
-value = 50.0
-fill_mode = 5
-radial_initial_angle = 113.1
+theme_override_styles/fill = SubResource("StyleBoxFlat_0ki06")
+max_value = 3000.0
+
+[node name="Pause" parent="." instance=ExtResource("5_5pce4")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="Confirm" parent="." instance=ExtResource("6_pkdqd")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+scale = Vector2(3, 3)

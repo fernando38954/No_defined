@@ -2,13 +2,11 @@ class_name Player
 extends CharacterBody2D
 
 var SPEED = 150.0
-const DASH_CD = 2
 const ATTACK_DELAY = 0.1
 const DASH_TIME = .2
 const NO_DAMAGE_TIME = .2
 var input = Vector2(0, 0)
 
-var timer_dash = 0
 var timer_immune = 0
 var timer_chant = 0
 var chant_time = -1
@@ -30,7 +28,7 @@ enum Type {
 func dash_event(delta):
 	if is_zero_approx(velocity.x) and is_zero_approx(velocity.y):
 		PlayerStatus.in_dash = false
-	if timer_dash == 0 and not PlayerStatus.can_dash:
+	if PlayerStatus.timer_dash == 0 and not PlayerStatus.can_dash:
 		if not PlayerStatus.in_attack:
 			$Sprite.play("default")
 		PlayerStatus.can_dash = true
@@ -40,7 +38,7 @@ func dash_event(delta):
 		$Sprite.play("exausted")
 		PlayerStatus.can_dash = false
 		PlayerStatus.in_dash = true
-		timer_dash = DASH_CD
+		PlayerStatus.timer_dash = PlayerStatus.DASH_CD
 		timer_immune = DASH_TIME
 		
 		if (not PlayerStatus.in_attack and input) or (chant_time >= 0 and input):
@@ -50,7 +48,7 @@ func dash_event(delta):
 		
 		reset_attack()
 	
-	timer_dash = move_toward(timer_dash, 0, delta)
+	PlayerStatus.timer_dash = move_toward(PlayerStatus.timer_dash, 0, delta)
 	timer_immune = move_toward(timer_immune, 0, delta)
 
 

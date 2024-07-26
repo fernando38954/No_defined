@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://drrpeyioy1s3"]
+
+[ext_resource type="Script" path="res://scene/Confirm.gd" id="1_mqwvb"]
+[ext_resource type="Texture2D" uid="uid://d0knf36g2fob2" path="res://assets/BackGround/Pause.png" id="2_2pj34"]
+[ext_resource type="Theme" uid="uid://vq2dhbf6gvoi" path="res://assets/BackGround/theme_button.tres" id="3_lgfr1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3x70u"]
+font_color = Color(0.666667, 0.45098, 0, 1)
+
+[node name="Confirm" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mqwvb")
+
+[node name="Menu" type="Sprite2D" parent="."]
+texture = ExtResource("2_2pj34")
+
+[node name="Question" type="Label" parent="Menu"]
+offset_left = -92.0
+offset_top = -27.0
+offset_right = 93.0
+offset_bottom = -4.0
+text = "Prepared for the battle?"
+label_settings = SubResource("LabelSettings_3x70u")
+
+[node name="Yes" type="Button" parent="Menu"]
+offset_left = -97.0
+offset_top = 4.0
+offset_right = -7.0
+offset_bottom = 35.0
+theme = ExtResource("3_lgfr1")
+text = "Yes"
+
+[node name="No" type="Button" parent="Menu"]
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 97.0
+offset_bottom = 35.0
+theme = ExtResource("3_lgfr1")
+text = "No"
+
+[connection signal="pressed" from="Menu/Yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="Menu/No" to="." method="_on_no_pressed"]

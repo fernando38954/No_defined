@@ -4,6 +4,10 @@ enum Element {
 	Null, Air, Fire, Earth, Water
 }
 
+func _ready():
+	$StoneName.visible = false
+	$StoneHP.visible = false
+
 func _process(delta):
 	$HPBar.value = PlayerStatus.HP
 	$BackHPBar.value = PlayerStatus.backHP
@@ -14,6 +18,7 @@ func _process(delta):
 	if $ShieldBar.value > 0:
 		$HPLabel.text += " + [color=aqua]{0}[/color]".format([int($ShieldBar.value)])
 	$HPLabel.text += "[/center]"
+	$DashTimer.value = PlayerStatus.timer_dash / PlayerStatus.DASH_CD * 100
 	
 	# Element 1
 	if PlayerStatus.ElementSet[0] == Element.Air:
@@ -74,3 +79,8 @@ func _process(delta):
 		$ElementSlote5.play("Water")
 	else:
 		$ElementSlote5.play("Null")
+	
+	if Function.stoneSpawned:
+		$StoneName.visible = true
+		$StoneHP.visible = true
+		$StoneHP.value = Function.stoneHP

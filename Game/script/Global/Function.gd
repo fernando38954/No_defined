@@ -1,9 +1,8 @@
 extends Node
 
 var stoneSpawned = false
-var stoneHP = 30
+var stoneHP = 3000
 var erase = true
-var time = 0
 
 func rand_Vector2():
 	var new_dir = Vector2()
@@ -15,7 +14,8 @@ func wait(seconds: float):
 	await get_tree().create_timer(seconds).timeout
 
 func reset_all():
-	time += 1
+	get_tree().paused = false
+	
 	stoneSpawned = false
 	stoneHP = 300
 	erase = false
@@ -25,6 +25,7 @@ func reset_all():
 	PlayerStatus.can_move = true
 	PlayerStatus.can_dash = true
 	PlayerStatus.in_dash = false
+	PlayerStatus.timer_dash = 0
 
 	PlayerStatus.can_attack = true
 	PlayerStatus.in_attack = false
