@@ -76,7 +76,7 @@ script = ExtResource("1_adxgl")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_faa1t")
-animation = &"Air"
+animation = &"Water"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

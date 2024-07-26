@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-const SPEED = 150.0
+var SPEED = 150.0
 const DASH_CD = 2
 const ATTACK_DELAY = 0.1
 const DASH_TIME = .2
@@ -139,6 +139,9 @@ func move():
 
 
 func _physics_process(delta):
+	if Function.erase:
+		queue_free()
+		
 	input = Input.get_vector("key_left", "key_right", "key_up", "key_down")
 	PlayerStatus.direction = get_global_mouse_position() - global_position
 	PlayerStatus.muzzle_position = $Sprite/Muzzle.global_position
@@ -280,6 +283,13 @@ func receive_damage(damage_position, knockback, value):
 	
 	return true
 
+func receive_special_damage(value):
+	PlayerStatus.Shield -= value
+	if PlayerStatus.Shield < 0:
+		PlayerStatus.HP -= abs(PlayerStatus.Shield)
+		PlayerStatus.Shield = 0
+		reset_attack()
+
 func burn_damage(delta):
 	PlayerStatus.Shield -= PlayerStatus.in_burnArea * delta / 2
 	if PlayerStatus.Shield < 0:
@@ -287,6 +297,9 @@ func burn_damage(delta):
 		PlayerStatus.Shield = 0
 
 func statusBar_smoothing():
+	PlayerStatus.HP = min(PlayerStatus.HP, PlayerStatus.maxHP)
+	PlayerStatus.Shield = min(PlayerStatus.Shield, PlayerStatus.maxShield)
+	
 	if PlayerStatus.HP > PlayerStatus.backHP:
 		PlayerStatus.backHP = PlayerStatus.HP
 	if PlayerStatus.Shield > PlayerStatus.backShield:

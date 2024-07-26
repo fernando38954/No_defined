@@ -1,10 +1,12 @@
 extends Node
 
-const NEARBY_ENEMY_SPAWN_CD = 20
+const NEARBY_ENEMY_SPAWN_CD = 5
 const PORTAL_ENEMY_SPWAN_CD = 20
 
-var timer_nearby_enemy_spawn = 20
-var timer_portal_enemy_spawn = 4
+var timer_nearby_enemy_spawn = 5
+var timer_portal_enemy_spawn = 10
+
+var timer_spawn_stone = 5
 
 func _ready():
 	Function.reset_all()
@@ -13,7 +15,7 @@ func _ready():
 	$PortalDown.play("default")
 	$PortalRight.play("default")
 
-func _process(delta):
+func _process(delta):	
 	# Nearby enemy spawn
 	if timer_nearby_enemy_spawn == 0:
 		var enemy = load("res://object/Character/Enemy/slime.tscn").instantiate()
@@ -62,6 +64,19 @@ func _process(delta):
 		timer_portal_enemy_spawn = PORTAL_ENEMY_SPWAN_CD
 	timer_portal_enemy_spawn = move_toward(timer_portal_enemy_spawn, 0, delta)
 	
+	if PlayerStatus.HP <= 0:
+		Function.erase = true
+		get_tree().change_scene_to_file("res://scene/Title.tscn")
+	
+	#if PlayerStatus.golem_defeat >= 4 and not Function.stoneSpawned:
+	if not Function.stoneSpawned:
+		if timer_spawn_stone == 0:
+			var enemy = load("res://object/Tower/Stone.tscn").instantiate()
+			enemy.global_position = Vector2(0, 0)
+			add_child(enemy)
+			Function.stoneSpawned = true
+		timer_spawn_stone = move_toward(timer_spawn_stone, 0, delta)
+	
 	if Input.is_action_just_pressed("TestAir"):
 		var drop = load("res://object/Drops/ElementBall.tscn").instantiate()
 		drop.global_position = Vector2(0, 0)
@@ -85,6 +100,3 @@ func _process(delta):
 		drop.global_position = Vector2(0, 0)
 		drop.start(4)
 		add_child(drop)
-	
-	if PlayerStatus.HP <= 0:
-		get_tree().change_scene_to_file("res://scene/Main.tscn")

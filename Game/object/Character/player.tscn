@@ -113,11 +113,13 @@ animations = [{
 bg_color = Color(0, 0.531112, 0.0266377, 1)
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_wy7eg")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_pjrco")
 
 [node name="Muzzle" type="Marker2D" parent="Sprite"]

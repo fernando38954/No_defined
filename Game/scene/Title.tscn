@@ -1,0 +1,143 @@
+[gd_scene load_steps=13 format=3 uid="uid://x20lb6hquyf"]
+
+[ext_resource type="Script" path="res://scene/Title.gd" id="1_vx6yw"]
+[ext_resource type="Texture2D" uid="uid://bnnoagmebja7d" path="res://assets/Elements/Element.png" id="2_i8r6e"]
+[ext_resource type="Texture2D" uid="uid://c3a40nye3csv8" path="res://assets/testAsset/player.png" id="3_7ixtv"]
+[ext_resource type="Texture2D" uid="uid://uik8jcdxe65g" path="res://assets/BackGround/emerald.jpg" id="4_0626n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rmpnt"]
+font_size = 50
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lllg"]
+atlas = ExtResource("2_i8r6e")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hywhn"]
+atlas = ExtResource("2_i8r6e")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5131o"]
+atlas = ExtResource("2_i8r6e")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xhq6"]
+atlas = ExtResource("2_i8r6e")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e51xr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lllg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hywhn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5131o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xhq6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjyck"]
+atlas = ExtResource("3_7ixtv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5owdc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjyck")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vx6yw")
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 548.0
+offset_top = 431.0
+offset_right = 725.0
+offset_bottom = 484.0
+text = "Start"
+
+[node name="Credits" type="Button" parent="."]
+offset_left = 548.0
+offset_top = 501.0
+offset_right = 725.0
+offset_bottom = 554.0
+text = "Credits"
+
+[node name="Exit" type="Button" parent="."]
+offset_left = 548.0
+offset_top = 571.0
+offset_right = 725.0
+offset_bottom = 624.0
+text = "Exit
+"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 546.0
+offset_top = 184.0
+offset_right = 722.0
+offset_bottom = 281.0
+text = "Wizard"
+label_settings = SubResource("LabelSettings_rmpnt")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(636, 222)
+rotation = 6.28319
+
+[node name="Air" type="AnimatedSprite2D" parent="Marker2D"]
+position = Vector2(0, 150)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_e51xr")
+
+[node name="Fire" type="AnimatedSprite2D" parent="Marker2D"]
+position = Vector2(-150, 0)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_e51xr")
+frame = 1
+
+[node name="Earth" type="AnimatedSprite2D" parent="Marker2D"]
+position = Vector2(-6.10352e-05, -150)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_e51xr")
+frame = 2
+
+[node name="Water" type="AnimatedSprite2D" parent="Marker2D"]
+position = Vector2(150, 0)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_e51xr")
+frame = 3
+
+[node name="P" type="AnimatedSprite2D" parent="."]
+position = Vector2(715, 224)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_5owdc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(637, 368)
+scale = Vector2(2.548, 1.464)
+texture = ExtResource("4_0626n")
+
+[connection signal="pressed" from="Start" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

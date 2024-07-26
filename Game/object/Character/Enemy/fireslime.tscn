@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3 uid="uid://8bomoe41au43"]
+[gd_scene load_steps=116 format=3 uid="uid://8bomoe41au43"]
 
 [ext_resource type="Script" path="res://script/Character/Enemy/fireslime.gd" id="1_435u0"]
 [ext_resource type="Texture2D" uid="uid://c6021lnlrbqhv" path="res://assets/Enemy/FireSlime/Appear.png" id="2_nb4x3"]
@@ -764,6 +764,9 @@ size = Vector2(25, 20)
 [sub_resource type="CircleShape2D" id="CircleShape2D_0pa2a"]
 radius = 70.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j0qqv"]
+size = Vector2(48, 28)
+
 [node name="FireSlime" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 6
@@ -787,7 +790,6 @@ offset_right = 12.0
 offset_bottom = -11.0
 mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_xsjwj")
-step = 1.0
 show_percentage = false
 
 [node name="DamageArea" type="Area2D" parent="."]
@@ -828,6 +830,12 @@ position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_0pa2a")
 debug_color = Color(0.765605, 0.446948, 0.0855064, 0.42)
 
+[node name="EnemyDetectArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectArea"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_j0qqv")
+
 [connection signal="body_died" from="." to="." method="_on_body_died"]
 [connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
@@ -836,3 +844,5 @@ debug_color = Color(0.765605, 0.446948, 0.0855064, 0.42)
 [connection signal="body_entered" from="SpecialAttackArea" to="." method="_on_special_attack_area_body_entered"]
 [connection signal="body_entered" from="BurnArea" to="." method="_on_burn_area_body_entered"]
 [connection signal="body_exited" from="BurnArea" to="." method="_on_burn_area_body_exited"]
+[connection signal="body_entered" from="EnemyDetectArea" to="." method="_on_enemy_detect_area_body_entered"]
+[connection signal="body_exited" from="EnemyDetectArea" to="." method="_on_enemy_detect_area_body_exited"]

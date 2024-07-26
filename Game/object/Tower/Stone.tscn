@@ -1,0 +1,147 @@
+[gd_scene load_steps=21 format=3 uid="uid://c7vo2edl1t3gw"]
+
+[ext_resource type="Script" path="res://script/Tower/Stone.gd" id="1_obj5x"]
+[ext_resource type="Texture2D" uid="uid://dj8tyy6wbast" path="res://assets/Tower/Stone.png" id="2_d54bv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nxac"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hymqc"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aff5g"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ex424"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmwdx"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fn7en"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sfqt"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2efx"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73e0d"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(256, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awbm5"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(288, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18mv1"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(320, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngcgr"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(352, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrru7"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(384, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfbif"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(416, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xerbp"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(448, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohpid"]
+atlas = ExtResource("2_d54bv")
+region = Rect2(480, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_461ua"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nxac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hymqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aff5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ex424")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmwdx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fn7en")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sfqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2efx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73e0d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awbm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18mv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngcgr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrru7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfbif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xerbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohpid")
+}],
+"loop": true,
+"name": &"default",
+"speed": 13.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qfs4t"]
+radius = 11.0
+
+[node name="Stone" type="CharacterBody2D"]
+collision_layer = 6
+script = ExtResource("1_obj5x")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -14)
+sprite_frames = SubResource("SpriteFrames_461ua")
+frame_progress = 0.546355
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qfs4t")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -18.0
+offset_top = -47.0
+offset_right = 18.0
+offset_bottom = -43.0
+max_value = 3000.0
+show_percentage = false

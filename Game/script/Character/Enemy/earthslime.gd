@@ -4,6 +4,7 @@ var burnArea = []
 
 func _ready():
 	HP = 100
+	MAX_HP = 100
 	WEIGHT = 2
 	SPEED = 20 + randi_range(-5, 5)
 	NORMAL_ATTACK_CD = 1
@@ -15,6 +16,7 @@ func _ready():
 	timer_attack_normal = NORMAL_ATTACK_CD
 	timer_attack_special = SPECIAL_ATTACK_CD
 	
+	scale = Vector2(1.3, 1.3)
 	$Sprite.play("appear")
 
 func additional_process(delta):

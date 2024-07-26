@@ -4,7 +4,8 @@ extends CharacterBody2D
 signal body_died
 
 # Status - Setting on ready
-var HP
+var MAX_HP = 0.0
+var HP = 0.0
 var WEIGHT
 var SPEED
 var NORMAL_ATTACK_CD
@@ -38,10 +39,12 @@ var in_normal_attack = false
 var in_special_attack = false
 var player = []
 var timer_bar = 0
+var hasplayer = false
 
 func _ready():
 	# Override
 	HP = 1
+	MAX_HP = 1
 	WEIGHT = 1
 	SPEED = 1
 	NORMAL_ATTACK_CD = 10
@@ -56,6 +59,10 @@ func _ready():
 	$Sprite.play("appear")
 
 func _physics_process(delta):
+	#Enemy eraser
+	if Function.erase:
+		queue_free()
+
 	# Enemy Special
 	additional_process(delta)
 	
@@ -110,20 +117,26 @@ func _physics_process(delta):
 			$DamageArea/CollisionShape2D.position.x *= -1
 			$NormalAttackArea/CollisionShape2D.position.x *= -1
 			$SpecialAttackArea/CollisionShape2D.position.x *= -1
+			if has_node("NormalAttackArea/AttackSprite"):
+				$NormalAttackArea/AttackSprite.flip_h = true
+				$NormalAttackArea/AttackSprite.position.x *= -1
 		elif velocity.x > 0 and $Sprite.flip_h == true:
 			$Sprite.flip_h = false
 			$DamageArea/CollisionShape2D.position.x *= -1
 			$NormalAttackArea/CollisionShape2D.position.x *= -1
 			$SpecialAttackArea/CollisionShape2D.position.x *= -1
+			if has_node("NormalAttackArea/AttackSprite"):
+				$NormalAttackArea/AttackSprite.flip_h = false
+				$NormalAttackArea/AttackSprite.position.x *= -1
 		
-		if global_position.distance_to(PlayerStatus.global_position) < NORMAL_ATTACK_RANGE and abs(global_position.y - PlayerStatus.global_position.y) < NORMAL_ATTACK_RANGE/2:
+		if hasplayer:
 			$Sprite.play("idle")
 			velocity = Vector2(0, 0)
 		else:
 			$Sprite.play("walk")
 			
 		timer_attack_special = move_toward(timer_attack_special, 0, delta) if global_position.distance_to(PlayerStatus.global_position) < SPECIAL_ATTACK_RANGE else SPECIAL_ATTACK_CD
-		timer_attack_normal = move_toward(timer_attack_normal, 0, delta) if global_position.distance_to(PlayerStatus.global_position) < NORMAL_ATTACK_RANGE else NORMAL_ATTACK_CD
+		timer_attack_normal = move_toward(timer_attack_normal, 0, delta) if hasplayer else NORMAL_ATTACK_CD
 		
 	# Attack
 	if not in_normal_attack and timer_attack_special == 0:
@@ -157,6 +170,9 @@ func take_damage(damage):
 		update_HP()
 
 func update_HP():
+	$HPbar.max_value = MAX_HP
+	HP = min(HP, MAX_HP)
+	
 	if HP != $HPbar.value:
 		$HPbar.value = HP
 		timer_bar = BAR_HIDE_DELAY
@@ -182,6 +198,14 @@ func _on_damage_area_body_entered(body):
 func _on_damage_area_body_exited(body):
 	if player.has(body):
 		player.erase(body)
+
+func _on_enemy_detect_area_body_entered(body):
+	if body is Player:
+		hasplayer = true
+		
+func _on_enemy_detect_area_body_exited(body):
+	if body is Player:
+		hasplayer = false
 
 func _on_sprite_animation_finished():
 	if $Sprite.animation == "appear":

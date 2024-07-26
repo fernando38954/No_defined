@@ -1,5 +1,10 @@
 extends Node
 
+var stoneSpawned = false
+var stoneHP = 30
+var erase = true
+var time = 0
+
 func rand_Vector2():
 	var new_dir = Vector2()
 	new_dir.x = randf_range(-1, 1)
@@ -10,6 +15,11 @@ func wait(seconds: float):
 	await get_tree().create_timer(seconds).timeout
 
 func reset_all():
+	time += 1
+	stoneSpawned = false
+	stoneHP = 300
+	erase = false
+
 	PlayerStatus.global_position = Vector2(0, 0)
 
 	PlayerStatus.can_move = true
@@ -25,11 +35,18 @@ func reset_all():
 	PlayerStatus.muzzle_position = Vector2(0, 0)
 	PlayerStatus.direction = Vector2(0, 0)
 
+	PlayerStatus.attack_position = null
+	PlayerStatus.golem_defeat = 0
+
+	PlayerStatus.in_burnArea = 0
+	PlayerStatus.in_frozenArea = 0
+
 	PlayerStatus.maxHP = 100
-	PlayerStatus.HP = 10
+	PlayerStatus.HP = 100
 	PlayerStatus.backHP = 100
 	PlayerStatus.maxShield = 100
-	PlayerStatus.Shield = 10
-	PlayerStatus.backShield = 100
+	PlayerStatus.Shield = 0
+	PlayerStatus.backShield = 0
 
 	PlayerStatus.ElementSet = [PlayerStatus.Element.Null, PlayerStatus.Element.Null, PlayerStatus.Element.Null, PlayerStatus.Element.Null, PlayerStatus.Element.Null]
+	PlayerStatus.ElementQty = [5, 0, 0, 0, 0]

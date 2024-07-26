@@ -6,6 +6,7 @@ var damage_counter = 0
 
 func _ready():
 	HP = 100
+	MAX_HP = 100
 	WEIGHT = 1
 	SPEED = 20 + randi_range(-5, 5)
 	NORMAL_ATTACK_CD = 1
