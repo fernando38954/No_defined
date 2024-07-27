@@ -1,5 +1,9 @@
 extends Node
 
+var winner = false
+var finished = false
+var win = false
+
 var stoneSpawned = false
 var stoneHP = 3000
 var erase = true
@@ -16,8 +20,11 @@ func wait(seconds: float):
 func reset_all():
 	get_tree().paused = false
 	
+	finished = false
+	win = false
+	
 	stoneSpawned = false
-	stoneHP = 300
+	stoneHP = 30
 	erase = false
 
 	PlayerStatus.global_position = Vector2(0, 0)

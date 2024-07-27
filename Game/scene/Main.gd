@@ -15,10 +15,12 @@ func _ready():
 	$PortalLeft.play("default")
 	$PortalDown.play("default")
 	$PortalRight.play("default")
+	DialogueManager.show_example_dialogue_balloon(load("res://dialog/Intro.dialogue"), "battle")
 
 func _process(delta):	
 	# Pause
-	if Input.is_action_just_pressed("key_pause"):
+	if Input.is_action_just_pressed("key_pause") and DialogueManager.dialogue_ended:
+		$GameUi/TransitionScreen.hide()
 		$GameUi/Pause.show()
 		$GameUi/Pause.active = true
 		$GameUi/Pause.delay_pause = $GameUi/Pause.PauseCD
@@ -73,11 +75,12 @@ func _process(delta):
 	timer_portal_enemy_spawn = move_toward(timer_portal_enemy_spawn, 0, delta)
 	
 	if PlayerStatus.HP <= 0:
+		$GameUi/TransitionScreen.transition("fade_out")
+		await get_tree().create_timer(1).timeout
 		Function.erase = true
-		get_tree().change_scene_to_file("res://scene/Title.tscn")
+		get_tree().change_scene_to_file("res://scene/FinalScene.tscn")
 	
-	#if PlayerStatus.golem_defeat >= 4 and not Function.stoneSpawned:
-	if not Function.stoneSpawned:
+	if PlayerStatus.golem_defeat >= 4 and not Function.stoneSpawned:
 		if timer_spawn_stone == 0:
 			var enemy = load("res://object/Tower/Stone.tscn").instantiate()
 			enemy.global_position = Vector2(0, 0)

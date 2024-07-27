@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://x20lb6hquyf"]
+[gd_scene load_steps=15 format=3 uid="uid://x20lb6hquyf"]
 
 [ext_resource type="Script" path="res://scene/Title.gd" id="1_vx6yw"]
 [ext_resource type="Texture2D" uid="uid://bnnoagmebja7d" path="res://assets/Elements/Element.png" id="2_i8r6e"]
 [ext_resource type="Texture2D" uid="uid://c3a40nye3csv8" path="res://assets/testAsset/player.png" id="3_7ixtv"]
 [ext_resource type="Texture2D" uid="uid://cns6i7ptbp4ll" path="res://assets/BackGround/background.png" id="4_bw0gt"]
 [ext_resource type="Texture2D" uid="uid://b7hyijbdbljoh" path="res://assets/BackGround/cauldron.png" id="5_7akr6"]
+[ext_resource type="PackedScene" uid="uid://csr6krtg5iww7" path="res://scene/TransitionScreen.tscn" id="6_thu6e"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rmpnt"]
 font_size = 50
@@ -145,6 +146,9 @@ texture = ExtResource("4_bw0gt")
 z_index = -1
 position = Vector2(640, 360)
 texture = ExtResource("5_7akr6")
+
+[node name="TransitionScreen" parent="." instance=ExtResource("6_thu6e")]
+visible = false
 
 [connection signal="pressed" from="Start" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]

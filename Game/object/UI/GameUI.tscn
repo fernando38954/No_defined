@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dkvi1xkkx3frp"]
+[gd_scene load_steps=20 format=3 uid="uid://dkvi1xkkx3frp"]
 
 [ext_resource type="Script" path="res://script/UI/GameUI.gd" id="1_uh4b5"]
 [ext_resource type="Texture2D" uid="uid://bnnoagmebja7d" path="res://assets/Elements/Element.png" id="2_hiwtt"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c43s847gbxb6a" path="res://assets/UI/DashCover.png" id="4_ch1jd"]
 [ext_resource type="PackedScene" uid="uid://5lcmgapughe8" path="res://scene/Pause.tscn" id="5_5pce4"]
 [ext_resource type="PackedScene" uid="uid://drrpeyioy1s3" path="res://scene/Confirm.tscn" id="6_pkdqd"]
+[ext_resource type="PackedScene" uid="uid://csr6krtg5iww7" path="res://scene/TransitionScreen.tscn" id="7_xhie7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx2x1"]
 bg_color = Color(3.17663e-06, 0.727867, 0.0814755, 1)
@@ -236,3 +237,5 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 scale = Vector2(3, 3)
+
+[node name="TransitionScreen" parent="." instance=ExtResource("7_xhie7")]

@@ -7,6 +7,8 @@ enum Element {
 func _ready():
 	$StoneName.visible = false
 	$StoneHP.visible = false
+	$TransitionScreen.transition("fade_in")
+	await get_tree().create_timer(1).timeout
 
 func _process(delta):
 	$HPBar.value = PlayerStatus.HP

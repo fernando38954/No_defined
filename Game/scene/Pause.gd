@@ -34,5 +34,7 @@ func _on_return_pressed():
 
 func _on_exit_pressed():
 	get_tree().paused = false
+	$"../TransitionScreen".transition("fade_out")
+	await get_tree().create_timer(1).timeout
 	Function.erase = true
 	get_tree().change_scene_to_file("res://scene/Title.tscn")

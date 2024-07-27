@@ -30,5 +30,8 @@ func _physics_process(delta):
 	timer_spawn = move_toward(timer_spawn, 0, delta)
 	
 	if Function.stoneHP <= 0:
+		$"../GameUi/TransitionScreen".transition("fade_out")
+		await get_tree().create_timer(1).timeout
 		Function.erase = true
-		get_tree().change_scene_to_file("res://scene/Title.tscn")
+		Function.win = true
+		get_tree().change_scene_to_file("res://scene/FinalScene.tscn")

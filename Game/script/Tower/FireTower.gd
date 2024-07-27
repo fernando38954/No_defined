@@ -18,12 +18,13 @@ func _ready():
 
 func _physics_process(delta):
 	$Sprite.play(SpriteID[Element_QTY])
-	if has_player and Input.is_action_just_pressed("key_put") and Element_QTY <= 4:
+	if has_player and Input.is_action_just_pressed("key_put"):
 		if PlayerStatus.checkElement() == Element.Fire:
 			PlayerStatus.removeElement()
-			Element_QTY += 1
-			if Element_QTY == 5:
-				can_invoke = true
+			if Element_QTY <= 4:
+				Element_QTY += 1
+				if Element_QTY == 5:
+					can_invoke = true
 	if can_invoke:
 		timer_invoke = move_toward(timer_invoke, 0, delta)
 		if timer_invoke == 0:

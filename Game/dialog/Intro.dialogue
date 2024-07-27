@@ -1,0 +1,30 @@
+~ intro
+
+(Press "Space" to continue dialog, please don't enter the portal or press "Escape" before dialog ended, otherwise game will freeze)
+P: The 198th experiment failed as usual... I wonder how I can become human again. I miss my charming white beard...
+P: I only have one last solution, to get the philosopher's stone and use its powerful magic to break this curse.
+P: The process of getting the Philosopher's Stone will attract countless monsters, so I'd better train my spells a bit.
+P: Press "Escape" to see the spells I learned.
+P: When I`m prepared, I can enter the portal to access the altar.
+=> END
+
+~ battle
+
+P: I need to defeat the monster to get its element ball, which can increase the effect of my spells of the corresponding element type.
+P: And these element balls are essentially used to obtain the Philosopher's Stone, just by placing them on the Element Altar with "Space".
+P: And finally, I just need to get a small piece of the Philosopher's Stone by breaking it.
+(The game balance has not yet been completely adjusted, so feel free to use the test commands)
+(Use the number pad 2, 4, 6 and 8 to get the Element Ball)
+=> END
+
+~ win
+
+After obtaining the piece of the Philosopher's Stone, P returns to his house, the same night, there was a strong light that came out of that place that lit up half the sky, and no one sees him again...
+set Function.finished = true
+=> END
+
+~ loose
+
+After a few days, when a traveler passed this place, there were only empty Element altars, waiting for the next sacrifice...
+set Function.finished = true
+=> END

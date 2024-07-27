@@ -32,7 +32,7 @@ func _on_body_died():
 	for i in 2:
 		var drop = load("res://object/Drops/ElementBall.tscn").instantiate()
 		drop.global_position = global_position
-		drop.start(1)
+		drop.start(3)
 		get_tree().root.add_child(drop)
 	PlayerStatus.golem_defeat += 1
 	queue_free()
